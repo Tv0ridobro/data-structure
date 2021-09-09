@@ -17,9 +17,9 @@ func New[T any]() *List[T] {
 }
 
 //PushFront adds data to the beginning of the list
-func (l *List[T]) PushFront(data T) {
+func (l *List[T]) PushFront(value T) {
 	l.len++
-	nn := node.New[T](data)
+	nn := node.New[T](value)
 	if l.head == nil {
 		l.head = nn
 		return
@@ -29,9 +29,9 @@ func (l *List[T]) PushFront(data T) {
 }
 
 //PushBack adds data to the end of the list
-func (l *List[T]) PushBack(data T) {
+func (l *List[T]) PushBack(value T) {
 	l.len++
-	newNode := node.New(data)
+	newNode := node.New(value)
 	if l.head == nil {
 		l.head = newNode
 		return
@@ -90,6 +90,21 @@ func (l *List[T]) PopFront() T {
 	data := l.head.Value
 	l.head = l.head.Next
 	return data
+}
+
+// ChangeAt changes value at given index
+//panic if list is empty
+func (l *List[T]) ChangeAt(i int, value T) {
+	if i >= l.len {
+		panic(fmt.Sprintf("index higher than len %d %d", i, l.len))
+	}
+	it := l.head
+	counter := 0
+	for counter != i {
+		it = it.Next
+		counter++
+	}
+	it.Value = value
 }
 
 //Peek returns element at the given index

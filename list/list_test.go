@@ -119,3 +119,26 @@ func TestList_GetAllAndPeek(t *testing.T) {
 		t.Error(data, list.GetAll())
 	}
 }
+
+func TestList_ChangeAtPanic(t *testing.T) {
+	defer func() {
+		if r := recover(); r == nil {
+			t.Error("The code did not panic")
+		}
+	}()
+	list := New[int]()
+	list.ChangeAt(0, 3)
+}
+
+func TestList_ChangeAt(t *testing.T) {
+	list := New[int]()
+	for i := 0; i < 20; i++ {
+		list.PushBack(i)
+	}
+	for i := 0; i < 20; i++ {
+		list.ChangeAt(i, i+30)
+		if value := list.Peek(i); value != i+30 {
+			t.Errorf("data[i] != list.Peek(i) %d %d", i+30, value)
+		}
+	}
+}
