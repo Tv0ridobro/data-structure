@@ -2,12 +2,11 @@ package list
 
 import (
 	"fmt"
-	"github.com/Tv0ridobro/dataStructure/node"
 )
 
 // List is simple linked list
 type List[T any] struct {
-	head *node.Node[T]
+	head *Node[T]
 	len  int
 }
 
@@ -19,7 +18,10 @@ func New[T any]() *List[T] {
 //PushFront adds data to the beginning of the list
 func (l *List[T]) PushFront(value T) {
 	l.len++
-	nn := node.New[T](value)
+	nn := &Node[T]{
+		Value: value,
+		Next:  nil,
+	}
 	if l.head == nil {
 		l.head = nn
 		return
@@ -31,7 +33,10 @@ func (l *List[T]) PushFront(value T) {
 //PushBack adds data to the end of the list
 func (l *List[T]) PushBack(value T) {
 	l.len++
-	newNode := node.New(value)
+	newNode := &Node[T]{
+		Value: value,
+		Next:  nil,
+	}
 	if l.head == nil {
 		l.head = newNode
 		return

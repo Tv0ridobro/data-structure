@@ -116,7 +116,7 @@ func TestList_GetAllAndPeek(t *testing.T) {
 		}
 	}
 	if !reflect.DeepEqual(data, list.GetAll()) {
-		t.Error(data, list.GetAll())
+		t.Error(data, " != ", list.GetAll())
 	}
 }
 
@@ -138,7 +138,7 @@ func TestList_ChangeAt(t *testing.T) {
 	for i := 0; i < 20; i++ {
 		list.ChangeAt(i, i+30)
 		if value := list.Peek(i); value != i+30 {
-			t.Errorf("data[i] != list.Peek(i) %d %d", i+30, value)
+			t.Errorf("value != list.Peek(i) %d %d", i+30, value)
 		}
 	}
 }
