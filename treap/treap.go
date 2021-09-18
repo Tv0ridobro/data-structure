@@ -24,17 +24,17 @@ func NewWithSource[T Ordered](s rand.Source) *Treap[T] {
 
 func (t *Treap[T]) Insert(value T) {
 	n := &Node[T]{
-		Priority: t.rand.Int(),
-		Value:    value,
-		Left:     nil,
-		Right:    nil,
+		priority: t.rand.Int(),
+		value:    value,
+		left:     nil,
+		right:    nil,
 		size:     1,
 	}
 	if t.root == nil {
 		t.root = n
 		return
 	}
-	left, right := split(t.root, n.Value)
+	left, right := split(t.root, n.value)
 	left1 := merge(left, n)
 	right1 := merge(left1, right)
 	t.root = right1
@@ -64,4 +64,13 @@ func (t *Treap[T]) Size() int {
 		return 0
 	}
 	return t.root.size
+}
+
+func (t *Treap[T]) GetAll() []T {
+	if t.root == nil {
+		return nil
+	}
+	d := make([]T, t.Size())
+	t.root.GetAll(d)
+	return d
 }

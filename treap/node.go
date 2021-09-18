@@ -5,49 +5,37 @@ type Ordered interface{
 ~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 |
 ~float64
 }
+
 type Node[T Ordered] struct {
-	Priority int
-	Value    T
-	Left     *Node[T]
-	Right    *Node[T]
-	size     int
+	priority int
+	value T
+	left  *Node[T]
+	right *Node[T]
+	size  int
 }
 
 func (n *Node[T]) contains(value T) bool {
 	if n == nil {
 		return false
 	}
-	if n.Value == value {
+	if n.value == value {
 		return true
 	}
-	if value < n.Value {
-		return n.Left.contains(value)
+	if value < n.value {
+		return n.left.contains(value)
 	}
-	return n.Right.contains(value)
+	return n.right.contains(value)
 }
 
 func tryRemoveMin[T Ordered](n *Node[T], expected T) *Node[T] {
 	if n == nil {
 		return nil
 	}
-	if n.Value == expected {
-		n = merge(n.Left, n.Right)
+	if n.value == expected {
+		n = merge(n.left, n.right)
 		return n
 	}
-	n.Left = tryRemoveMin(n.Left, expected)
-	n.recalculateSize()
-	return n
-}
-
-func tryRemoveMax[T Ordered](n *Node[T], expected T) *Node[T] {
-	if n == nil {
-		return nil
-	}
-	if n.Value == expected {
-		n = merge(n.Left, n.Right)
-		return n
-	}
-	n.Right = tryRemoveMax(n.Right, expected)
+	n.left = tryRemoveMin(n.left, expected)
 	n.recalculateSize()
 	return n
 }
@@ -59,12 +47,12 @@ func merge[T Ordered](left *Node[T], right *Node[T]) *Node[T] {
 	if right == nil {
 		return left
 	}
-	if left.Priority < right.Priority {
-		right.Left = merge(left, right.Left)
+	if left.priority < right.priority {
+		right.left = merge(left, right.left)
 		right.recalculateSize()
 		return right
 	} else {
-		left.Right = merge(left.Right, right)
+		left.right = merge(left.right, right)
 		left.recalculateSize()
 		return left
 	}
@@ -74,14 +62,14 @@ func split[T Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
 	if n == nil {
 		return nil, nil
 	}
-	if key > n.Value {
-		left, right := split(n.Right, key)
-		n.Right = left
+	if key > n.value {
+		left, right := split(n.right, key)
+		n.right = left
 		n.recalculateSize()
 		return n, right
 	}
-	left, right := split(n.Left, key)
-	n.Left = right
+	left, right := split(n.left, key)
+	n.left = right
 	n.recalculateSize()
 	return left, n
 }
@@ -91,12 +79,24 @@ func (n *Node[T]) recalculateSize() {
 		return
 	}
 	n.size = 0
-	if n.Left != nil {
-		n.size += n.Left.size
+	if n.left != nil {
+		n.size += n.left.size
 	}
-	if n.Right != nil {
-		n.size += n.Right.size
+	if n.right != nil {
+		n.size += n.right.size
 	}
 	n.size += 1
 	return
+}
+
+func (n *Node[T]) GetAll(elements []T) {
+	lSize := 0
+	if n.left != nil {
+		lSize = n.left.size
+		n.left.GetAll(elements[:lSize])
+	}
+	elements[lSize] = n.value
+	if n.right != nil {
+		n.right.GetAll(elements[lSize+1:])
+	}
 }
