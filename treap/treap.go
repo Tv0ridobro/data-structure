@@ -40,16 +40,17 @@ func (t *Treap[T]) Insert(value T) {
 	t.root = right1
 }
 
-func (t *Treap[T]) Remove(value T) {
+func (t *Treap[T]) Remove(value T) bool {
 	if t.root == nil {
-		return
+		return false
 	}
+	oldSize := t.root.size
 	left, right := split(t.root, value)
-	if right == nil {
-		return
+	if right != nil {
+		right = tryRemoveMin(right, value)
 	}
-	right = tryRemoveMin(right, value)
 	t.root = merge(left, right)
+	return oldSize != t.Size()
 }
 
 func (t *Treap[T]) Contains(value T) bool {
@@ -71,6 +72,6 @@ func (t *Treap[T]) GetAll() []T {
 		return nil
 	}
 	d := make([]T, t.Size())
-	t.root.GetAll(d)
+	t.root.getAll(d)
 	return d
 }

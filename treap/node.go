@@ -89,14 +89,14 @@ func (n *Node[T]) recalculateSize() {
 	return
 }
 
-func (n *Node[T]) GetAll(elements []T) {
+func (n *Node[T]) getAll(elements []T) {
 	lSize := 0
 	if n.left != nil {
 		lSize = n.left.size
-		n.left.GetAll(elements[:lSize])
+		n.left.getAll(elements[:lSize])
 	}
 	elements[lSize] = n.value
 	if n.right != nil {
-		n.right.GetAll(elements[lSize+1:])
+		n.right.getAll(elements[lSize+1:])
 	}
 }

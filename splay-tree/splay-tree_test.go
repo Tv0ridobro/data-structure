@@ -1,4 +1,4 @@
-package treap
+package splay_tree
 
 import (
 	"math/rand"
