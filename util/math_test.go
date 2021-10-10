@@ -14,6 +14,8 @@ func TestNearestPowerOf2(t *testing.T) {
 		{45, 64},
 		{3, 4},
 		{2020, 2048},
+		{0, 0},
+		{-1000, 0},
 	}
 	for i := range tests {
 		if NearestPowerOf2(tests[i].value) != tests[i].answer {
