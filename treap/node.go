@@ -6,6 +6,7 @@ type Ordered interface{
 ~float64
 }
 
+// Node represents node of a treap
 type Node[T Ordered] struct {
 	priority int
 	value T
@@ -14,6 +15,8 @@ type Node[T Ordered] struct {
 	size  int
 }
 
+// contains returns true if given node contains given value
+// False otherwise
 func (n *Node[T]) contains(value T) bool {
 	if n == nil {
 		return false
@@ -27,6 +30,7 @@ func (n *Node[T]) contains(value T) bool {
 	return n.right.contains(value)
 }
 
+// tryRemoveMin tries to remove minimal element in given node if this element is the same as given one
 func tryRemoveMin[T Ordered](n *Node[T], expected T) *Node[T] {
 	if n == nil {
 		return nil
@@ -40,6 +44,7 @@ func tryRemoveMin[T Ordered](n *Node[T], expected T) *Node[T] {
 	return n
 }
 
+// merge merges two nodes, all elements of left node should be less than any of right elements
 func merge[T Ordered](left *Node[T], right *Node[T]) *Node[T] {
 	if left == nil {
 		return right
@@ -58,6 +63,7 @@ func merge[T Ordered](left *Node[T], right *Node[T]) *Node[T] {
 	}
 }
 
+// split splits given node by given key into two nodes
 func split[T Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
 	if n == nil {
 		return nil, nil
@@ -74,6 +80,7 @@ func split[T Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
 	return left, n
 }
 
+// recalculateSize recalculates size of given node
 func (n *Node[T]) recalculateSize() {
 	if n == nil {
 		return
@@ -89,6 +96,8 @@ func (n *Node[T]) recalculateSize() {
 	return
 }
 
+// getAll returns all elements in node
+// len of elements should be same as size of node
 func (n *Node[T]) getAll(elements []T) {
 	lSize := 0
 	if n.left != nil {
