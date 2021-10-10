@@ -1,8 +1,8 @@
 package list
 
 import (
+	"github.com/Tv0ridobro/data-structure/util"
 	"math/rand"
-	"reflect"
 	"testing"
 )
 
@@ -115,7 +115,7 @@ func TestList_GetAllAndPeek(t *testing.T) {
 			t.Errorf("data[i] != list.Peek(i) %d %d", data[i], list.Peek(i))
 		}
 	}
-	if !reflect.DeepEqual(data, list.GetAll()) {
+	if !util.Equal(data, list.GetAll()) {
 		t.Error(data, " != ", list.GetAll())
 	}
 }
