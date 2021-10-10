@@ -1,13 +1,19 @@
+// Package treap implements a treap
+// See https://en.wikipedia.org/wiki/Treap for more details
 package treap
 
 import "math/rand"
 
-//https://en.wikipedia.org/wiki/Treap
+// Treap represents a treap
+// Zero value of Treap is invalid treap, should be used only with New() or NewWithSource()
 type Treap[T Ordered] struct {
 	rand *rand.Rand
 	root *Node[T]
 }
 
+// New returns an initialized treap
+// rand.Rand is used with zero seed
+// For custom rand.Rand use NewWithSource
 func New[T Ordered]() *Treap[T] {
 	return &Treap[T]{
 		rand: rand.New(rand.NewSource(0)),
@@ -15,6 +21,7 @@ func New[T Ordered]() *Treap[T] {
 	}
 }
 
+// NewWithSource returns an initialized treap with given source
 func NewWithSource[T Ordered](s rand.Source) *Treap[T] {
 	return &Treap[T]{
 		rand: rand.New(s),
@@ -22,6 +29,7 @@ func NewWithSource[T Ordered](s rand.Source) *Treap[T] {
 	}
 }
 
+// Insert inserts value in a tree
 func (t *Treap[T]) Insert(value T) {
 	n := &Node[T]{
 		priority: t.rand.Int(),
@@ -40,6 +48,8 @@ func (t *Treap[T]) Insert(value T) {
 	t.root = right1
 }
 
+// Remove removes value from tree
+// returns true if tree contained given value, false otherwise
 func (t *Treap[T]) Remove(value T) bool {
 	if t.root == nil {
 		return false
@@ -53,6 +63,7 @@ func (t *Treap[T]) Remove(value T) bool {
 	return oldSize != t.Size()
 }
 
+// Contains returns true if tree contains given value, false otherwise
 func (t *Treap[T]) Contains(value T) bool {
 	if t.root == nil {
 		return false
@@ -60,6 +71,7 @@ func (t *Treap[T]) Contains(value T) bool {
 	return t.root.contains(value)
 }
 
+// Size returns size of the tree
 func (t *Treap[T]) Size() int {
 	if t.root == nil {
 		return 0
@@ -67,6 +79,8 @@ func (t *Treap[T]) Size() int {
 	return t.root.size
 }
 
+// GetAll returns all elements from tree
+// returned slice is sorted
 func (t *Treap[T]) GetAll() []T {
 	if t.root == nil {
 		return nil

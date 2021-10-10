@@ -1,8 +1,8 @@
 package treap
 
 import (
+	"github.com/Tv0ridobro/data-structure/util"
 	"math/rand"
-	"reflect"
 	"sort"
 	"testing"
 )
@@ -42,7 +42,7 @@ func TestAll2(t *testing.T) {
 		tr.Insert(i)
 	}
 	sort.Ints(permutation)
-	if !reflect.DeepEqual(tr.GetAll(), permutation) {
+	if !util.Equal(tr.GetAll(), permutation) {
 		t.Errorf("permutation doesn't equal getAll call")
 	}
 	if tr.Size() != 1000000 {
