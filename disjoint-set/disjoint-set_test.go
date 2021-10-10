@@ -1,7 +1,6 @@
 package disjoint_set
 
 import (
-	"reflect"
 	"testing"
 )
 
@@ -12,17 +11,6 @@ func TestAllConnected(t *testing.T) {
 		if ds.Size(0) != i+2 {
 			t.Errorf("%d != %d", ds.Size(0), i+2)
 		}
-	}
-}
-
-func TestEqual(t *testing.T) {
-	ds := New(100)
-	ds2 := New(0)
-	for i := 0; i < 100; i++ {
-		ds2.Add()
-	}
-	if !reflect.DeepEqual(ds, ds2) {
-		t.Errorf("ds != ds2")
 	}
 }
 
