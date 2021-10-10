@@ -5,6 +5,8 @@ type Ordered interface{
 ~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 |
 ~float64
 }
+
+// Node represents node of a splay tree
 type Node[T Ordered] struct {
 	parent *Node[T]
 	right  *Node[T]
@@ -13,6 +15,7 @@ type Node[T Ordered] struct {
 	size   int
 }
 
+// isRight returns true if node is right child of his parent, false otherwise
 func (n *Node[T]) isRight() bool {
 	if n == nil || n.parent == nil {
 		return false
@@ -21,6 +24,7 @@ func (n *Node[T]) isRight() bool {
 	return parent.right == n
 }
 
+// isRight returns true if node is left child of his parent, false otherwise
 func (n *Node[T]) isLeft() bool {
 	if n == nil || n.parent == nil {
 		return false
@@ -29,10 +33,12 @@ func (n *Node[T]) isLeft() bool {
 	return parent.left == n
 }
 
+// isRoot returns true if given node is root
 func (n *Node[T]) isRoot() bool {
 	return n.parent == nil
 }
 
+// setRight sets c as right child of p
 func setRight[T Ordered](p, c *Node[T]) {
 	if p == nil {
 		return
@@ -43,6 +49,7 @@ func setRight[T Ordered](p, c *Node[T]) {
 	}
 }
 
+// setRight sets c as left child of p
 func setLeft[T Ordered](p, c *Node[T]) {
 	if p == nil {
 		return
@@ -53,6 +60,8 @@ func setLeft[T Ordered](p, c *Node[T]) {
 	}
 }
 
+// find returns node containing given value
+// or last node reached
 func (n *Node[T]) find(value T) *Node[T] {
 	if n == nil {
 		return nil
@@ -76,6 +85,7 @@ func (n *Node[T]) find(value T) *Node[T] {
 	}
 }
 
+// splay uses splay
 func (n *Node[T]) splay() {
 	for !n.isRoot() && !n.parent.isRoot() {
 		if (n.isLeft() && n.parent.isLeft()) || (n.isRight() && n.parent.isRight()) {
@@ -89,6 +99,7 @@ func (n *Node[T]) splay() {
 	}
 }
 
+// zig uses left or right rotation
 func (n *Node[T]) zig() {
 	grandParent := n.parent.parent
 	isLeft := n.parent.isLeft()
@@ -112,16 +123,19 @@ func (n *Node[T]) zig() {
 	}
 }
 
+// zigZig uses zig zig rotation
 func (n *Node[T]) zigZig() {
 	n.parent.zig()
 	n.zig()
 }
 
+// zigZag uses zig zag rotation
 func (n *Node[T]) zigZag() {
 	n.zig()
 	n.zig()
 }
 
+// max returns node with max element
 func (n *Node[T]) max() *Node[T] {
 	for n.right != nil {
 		n = n.right
@@ -129,6 +143,7 @@ func (n *Node[T]) max() *Node[T] {
 	return n
 }
 
+// split splits given node by given key into two nodes
 func split[T Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
 	if n == nil {
 		return nil, nil
@@ -153,6 +168,7 @@ func split[T Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
 	}
 }
 
+// merge merges two nodes, all elements of left node should be less than any of right elements
 func merge[T Ordered](left *Node[T], right *Node[T]) *Node[T] {
 	if left == nil {
 		return right
@@ -167,6 +183,7 @@ func merge[T Ordered](left *Node[T], right *Node[T]) *Node[T] {
 	return max
 }
 
+// recalculateSize recalculates size of given node
 func (n *Node[T]) recalculateSize() {
 	if n == nil {
 		return
@@ -182,6 +199,8 @@ func (n *Node[T]) recalculateSize() {
 	return
 }
 
+// getAll returns all elements in node
+// len of elements should be same as size of node
 func (n *Node[T]) getAll(elements []T) {
 	lSize := 0
 	if n.left != nil {

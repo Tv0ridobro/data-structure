@@ -1,14 +1,19 @@
+// Package splay_tree implements a splay tree
+// See https://en.wikipedia.org/wiki/Splay_tree for more details
 package splay_tree
 
+// SplayTree represents a splay tree
+// Zero value of SplayTree is empty splay tree
 type SplayTree[T Ordered] struct {
 	root *Node[T]
 }
 
+// New returns an initialized splay tree
 func New[T Ordered]() *SplayTree[T] {
 	return &SplayTree[T]{}
 }
 
-//Insert...
+// Insert inserts value in a tree
 func (s *SplayTree[T]) Insert(value T) {
 	n := &Node[T]{
 		value: value,
@@ -26,7 +31,7 @@ func (s *SplayTree[T]) Insert(value T) {
 	s.root.recalculateSize()
 }
 
-//Contains
+// Contains returns true if tree contains given value, false otherwise
 func (s *SplayTree[T]) Contains(value T) bool {
 	if s.root == nil {
 		return false
@@ -35,7 +40,7 @@ func (s *SplayTree[T]) Contains(value T) bool {
 	return s.root.value == value
 }
 
-//Size...
+// Size returns size of the tree
 func (s *SplayTree[T]) Size() int {
 	if s.root == nil {
 		return 0
@@ -43,13 +48,15 @@ func (s *SplayTree[T]) Size() int {
 	return s.root.size
 }
 
-func (s *SplayTree[T]) Remove(value T) {
+// Remove removes value from tree
+// returns true if tree contained given value, false otherwise
+func (s *SplayTree[T]) Remove(value T) bool {
 	if s.root == nil {
-		return
+		return false
 	}
 	s.root = s.root.find(value)
 	if s.root.value != value {
-		return
+		return false
 	}
 	l, r := s.root.left, s.root.right
 	s.root.left, s.root.right = nil, nil
@@ -60,9 +67,11 @@ func (s *SplayTree[T]) Remove(value T) {
 		r.parent = nil
 	}
 	s.root = merge(l, r)
-	s.root.recalculateSize()
+	return true
 }
 
+// GetAll returns all elements from tree
+// returned slice is sorted
 func (s *SplayTree[T]) GetAll() []T {
 	if s.root == nil {
 		return nil
