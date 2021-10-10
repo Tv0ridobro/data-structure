@@ -1,20 +1,23 @@
+// Package segment_tree implements a segment tree
+// See https://en.wikipedia.org/wiki/Segment_tree for more details
 package segment_tree
 
 import (
 	"github.com/Tv0ridobro/data-structure/util"
 )
 
-//https://en.wikipedia.org/wiki/Segment_tree
+// SegmentTree represents a segment tree
+// Zero value of SegmentTree is invalid segment tree, should be used only with New()
 type SegmentTree[T any] struct {
 	op       func(T, T) T
 	neutral  T
 	elements []T
 }
 
-//New returns new SegmentTree
-//T should be monoid
-//op(op(a, b), c) = op(a, op(b, c)) and op(neutral, a) = op(a, neutral) = a)
-func New[T any](elements []T, op func(T, T) T, neutral T, ) *SegmentTree[T] {
+// New returns new SegmentTree
+// T should be monoid
+// op(op(a, b), c) = op(a, op(b, c)) and op(neutral, a) = op(a, neutral) = a
+func New[T any](elements []T, op func(T, T) T, neutral T) *SegmentTree[T] {
 	d := util.NearestPowerOf2(len(elements))
 	c := make([]T, d*2)
 	copied := copy(c[d:], elements)
@@ -30,6 +33,9 @@ func New[T any](elements []T, op func(T, T) T, neutral T, ) *SegmentTree[T] {
 	return &st
 }
 
+// build recursively builds segment tree
+// i is current index in tree
+// left and right are its bound
 func (s *SegmentTree[T]) build(i, left, right int) {
 	if right == left {
 		return
@@ -40,10 +46,15 @@ func (s *SegmentTree[T]) build(i, left, right int) {
 	s.elements[i] = s.op(s.elements[2*i], s.elements[2*i+1])
 }
 
+// Query returns result of operation on given segment
 func (s *SegmentTree[T]) Query(l, r int) T {
 	return s.query(1, 0, len(s.elements)/2-1, l, r)
 }
 
+// query returns result of operation on given segment
+// i is current index in tree
+// l and r are its bound
+// left and right are initial values of query
 func (s *SegmentTree[T]) query(i, left, right, l, r int) T {
 	if l > r {
 		return s.neutral
@@ -58,24 +69,27 @@ func (s *SegmentTree[T]) query(i, left, right, l, r int) T {
 	)
 }
 
-//Modify allows you to modify element at given index
-func (s *SegmentTree[T]) Modify(i int, data T) {
-	s.modify(1, i, 0, len(s.elements)/2-1, data)
+// Modify modifies value at given index
+func (s *SegmentTree[T]) Modify(i int, value T) {
+	s.modify(1, i, 0, len(s.elements)/2-1, value)
 	return
 }
 
-//Modify allows you to modify element at given index
-func (s *SegmentTree[T]) modify(pos, i, left, right int, data T) {
+// modify modifies value at given index
+// i is current index in tree
+// left and right are its bound
+// ind is initial index
+func (s *SegmentTree[T]) modify(i, ind, left, right int, value T) {
 	if right == left {
-		s.elements[pos] = data
+		s.elements[i] = value
 		return
 	}
 	middle := (left + right) / 2
-	if i <= middle {
-		s.modify(pos*2, i, left, middle, data)
+	if ind <= middle {
+		s.modify(i*2, ind, left, middle, value)
 	} else {
-		s.modify(pos*2+1, i, middle+1, right, data)
+		s.modify(i*2+1, ind, middle+1, right, value)
 	}
-	s.elements[pos] = s.op(s.elements[pos*2], s.elements[pos*2+1])
+	s.elements[i] = s.op(s.elements[i*2], s.elements[i*2+1])
 	return
 }
