@@ -1,19 +1,36 @@
+// Package stack implements a doubly linked list
+// See https://en.wikipedia.org/wiki/Stack_(abstract_data_type) for more details
 package stack
 
-import "github.com/Tv0ridobro/data-structure/list"
-
+// Stack represents a stack
+// Zero value of Stack is empty stack
 type Stack[T any] struct {
-	list list.List[T]
+	array []T
 }
 
+// New returns an initialized stack
+func New[T any]() *Stack[T] {
+	return &Stack[T]{[]T{}}
+}
+
+// Push adds element
 func (s *Stack[T]) Push(value T) {
-	s.list.PushBack(value)
+	s.array = append(s.array, value)
 }
 
+// Pop removes the most recently added element
 func (s *Stack[T]) Pop() T {
-	return s.list.PopBack()
+	v := s.array[len(s.array)-1]
+	s.array = s.array[:len(s.array)-1]
+	return v
 }
 
+// Peek returns element on tom of stack
+func (s *Stack[T]) Peek() T {
+	return s.array[len(s.array)-1]
+}
+
+// Size returns size of the stack
 func (s *Stack[T]) Size() int {
-	return s.list.Len()
+	return len(s.array)
 }
