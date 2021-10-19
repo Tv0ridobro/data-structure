@@ -17,7 +17,6 @@ type Treap[T Ordered] struct {
 func New[T Ordered]() *Treap[T] {
 	return &Treap[T]{
 		rand: rand.New(rand.NewSource(0)),
-		root: nil,
 	}
 }
 
@@ -25,7 +24,6 @@ func New[T Ordered]() *Treap[T] {
 func NewWithSource[T Ordered](s rand.Source) *Treap[T] {
 	return &Treap[T]{
 		rand: rand.New(s),
-		root: nil,
 	}
 }
 
@@ -34,8 +32,6 @@ func (t *Treap[T]) Insert(value T) {
 	n := &Node[T]{
 		priority: t.rand.Int(),
 		value:    value,
-		left:     nil,
-		right:    nil,
 		size:     1,
 	}
 	if t.root == nil {
