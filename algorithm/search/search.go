@@ -26,8 +26,8 @@ func OrderStatistics[T Ordered](elements []T, k int) T {
 	}
 }
 
-// partition picks random element as pivot and partitions slice in a way that elements al lower
-// indexes are less or equal than pivot
+// partition picks random element as pivot and partitions slice in a way
+// that elements at lower indexes are less or equal than pivot
 // partition returns index of pivot
 func partition[T Ordered](elements []T) int {
 	size := len(elements)
