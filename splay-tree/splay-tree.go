@@ -70,6 +70,27 @@ func (s *SplayTree[T]) Remove(value T) bool {
 	return true
 }
 
+// Kth returns kth greatest element
+func (s *SplayTree[T]) Kth(i int) T {
+	if i > s.Size() {
+		panic("i is greater than size")
+	}
+	n := s.root.kth(i)
+	return n.value
+}
+
+//Sub returns elements [l, r) in ascending order
+func (s *SplayTree[T]) Sub(l, r int) []T {
+	sl := make([]T, r-l)
+	n := s.root.kth(l)
+	sl[0] = n.value
+	for i := 1; i < r-l; i++ {
+		n = n.next()
+		sl[i] = n.value
+	}
+	return sl
+}
+
 // GetAll returns all elements from tree
 // returned slice is sorted
 func (s *SplayTree[T]) GetAll() []T {

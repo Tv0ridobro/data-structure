@@ -143,6 +143,14 @@ func (n *Node[T]) max() *Node[T] {
 	return n
 }
 
+// max returns node with max element
+func (n *Node[T]) min() *Node[T] {
+	for n.left != nil {
+		n = n.left
+	}
+	return n
+}
+
 // split splits given node by given key into two nodes
 func split[T Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
 	if n == nil {
@@ -197,6 +205,28 @@ func (n *Node[T]) recalculateSize() {
 	}
 	n.size += 1
 	return
+}
+
+// recalculateSize recalculates size of given node
+func (n *Node[T]) kth(i int) *Node[T] {
+	if n.size - 1 == i {
+		return n
+	}
+	if n.size > i {
+		return n.left.kth(i)
+	}
+	return n.right.kth(i - n.left.size - 1)
+}
+
+func (n *Node[T]) next() *Node[T] {
+	if n.right != nil {
+		return n.right.min()
+	}
+	for n.isRight() {
+		n = n.parent
+	}
+	n = n.parent
+	return n
 }
 
 // getAll returns all elements in node

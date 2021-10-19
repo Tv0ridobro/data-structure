@@ -58,3 +58,15 @@ func TestAll2(t *testing.T) {
 		t.Errorf("root is not nil")
 	}
 }
+
+func TestSplayTree_Kth(t *testing.T) {
+	s := New[int]()
+	for i := 0; i < 1000; i++ {
+		s.Insert(i)
+	}
+	for i := 0; i < 1000; i++ {
+		if v := s.Kth(i); v != i {
+			t.Errorf("Kth != ans %d %d", v, i)
+		}
+	}
+}
