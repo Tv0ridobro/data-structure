@@ -82,7 +82,7 @@ func (l *List[T]) GetAll() []T {
 // Panics if list is empty
 func (l *List[T]) PopBack() T {
 	if l.len == 0 {
-		panic("empty list")
+		panic("list is empty")
 	}
 	l.len--
 	if l.tail == nil {
@@ -103,7 +103,7 @@ func (l *List[T]) PopBack() T {
 // Panics if list is empty
 func (l *List[T]) PopFront() T {
 	if l.len == 0 {
-		panic("empty list")
+		panic("list is empty")
 	}
 	l.len--
 	v := l.head.value
@@ -222,36 +222,21 @@ func (l *List[T]) InsertAfter(node *Node[T], value T) {
 	next.prev = nn
 }
 
-// RemoveAfter removes next Node of given Node from List
-func (l *List[T]) RemoveAfter(n *Node[T]) T {
-	if n == l.tail || n.next == nil {
-		panic("")
-	}
-	if n.next == l.tail {
-		return l.PopBack()
-	}
-	l.len--
-	next := n.next
-	gnext := next.next
-	gnext.prev = n
-	n.next = gnext
-	return next.value
-}
-
-// RemoveBefore removes previous Node of given Node from list
-func (l *List[T]) RemoveBefore(n *Node[T]) T {
+// Remove removes given node from list
+func (l *List[T]) Remove(n *Node[T]) {
 	if n == l.head {
-		panic("")
+		l.PopFront()
+		return
 	}
-	if n.prev == l.head {
-		return l.PopFront()
+	if n == l.tail {
+		l.PopBack()
+		return
 	}
 	l.len--
 	prev := n.prev
-	gprev := prev.prev
-	gprev.next = n
-	n.prev = gprev
-	return prev.value
+	next := n.next
+	prev.next = next
+	next.prev = prev
 }
 
 // InsertBefore adds new Node with given value before given Node
@@ -267,4 +252,41 @@ func (l *List[T]) InsertBefore(n *Node[T], value T) {
 	nn.prev = prev
 	nn.next = n
 	n.prev = nn
+}
+
+// Cut cuts list into two list
+// i is last element in first list
+// for example cut(1) for list {1,2,3,4,5} returns {1,2}, {3,4,5}
+func (l *List[T]) Cut(i int) (*List[T], *List[T]) {
+	n := l.Node(i)
+	other := New[T]()
+	other.len = l.len - i - 1
+	l.len = i + 1
+	other.tail = l.tail
+	other.head = n.next
+	if other.len == 1 {
+		other.tail = nil
+	}
+	if other.head != nil {
+		other.head.prev = nil
+	}
+	l.tail = n
+	l.tail.next = nil
+	if l.len == 1 {
+		l.tail = nil
+	}
+	return l, other
+}
+
+// Back returns last element
+func (l *List[T]) Back() T {
+	if l.tail != nil {
+		return l.tail.value
+	}
+	return l.head.value
+}
+
+// Front returns first element
+func (l *List[T]) Front() T {
+	return l.head.value
 }

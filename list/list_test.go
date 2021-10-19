@@ -111,8 +111,8 @@ func TestList_GetAllAndPeek(t *testing.T) {
 		}
 	}
 	for i := 0; i < length; i++ {
-		if data[i] != list.Peek(i) {
-			t.Errorf("data[i] != list.Peek(i) %d %d", data[i], list.Peek(i))
+		if v := list.Peek(i); data[i] != v {
+			t.Errorf("data[i] != list.Peek(i) %d %d", data[i], v)
 		}
 	}
 	if !util.Equal(data, list.GetAll()) {
@@ -140,5 +140,25 @@ func TestList_ChangeAt(t *testing.T) {
 		if value := list.Peek(i); value != i+30 {
 			t.Errorf("value != list.Peek(i) %d %d", i+30, value)
 		}
+	}
+}
+
+func TestList_Cut(t *testing.T) {
+	list := New[int]()
+	for i := 0; i < 20; i++ {
+		list.PushBack(i)
+	}
+	l, r := list.Cut(5)
+	if v := l.Len(); v != 6 {
+		t.Errorf("l len %d != %d", v, 6)
+	}
+	if v := r.Len(); v != 14 {
+		t.Errorf("l len %d != %d", v, 14)
+	}
+	if v := l.GetAll(); !util.Equal(v, []int{0, 1, 2, 3, 4, 5}) {
+		t.Errorf("l GetAll is wrong %v", v)
+	}
+	if v := r.GetAll(); !util.Equal(v, []int{6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}) {
+		t.Errorf("l GetAll is wrong %v", v)
 	}
 }
