@@ -4,10 +4,10 @@ import (
 	"math/rand"
 )
 
-type Ordered interface{
-~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 |
-~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 |
-~float64
+type Ordered interface {
+	~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 |
+		~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 |
+		~float64
 }
 
 // OrderStatistics returns kth largest element in given slice
@@ -36,7 +36,7 @@ func partition[T Ordered](elements []T) int {
 	i, j := 0, 0
 	for j < size-1 {
 		if elements[j] <= elements[size-1] {
-			if elements[j] == elements[size - 1] && rand.Float64() < 0.5 { // to optimize work in case a lot of elements == elements[size - 1]
+			if elements[j] == elements[size-1] && rand.Float64() < 0.5 { // to optimize work in case a lot of elements == elements[size - 1]
 				j++
 				continue
 			}

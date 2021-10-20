@@ -1,9 +1,9 @@
 package splay_tree
 
-type Ordered interface{
-~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 |
-~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 |
-~float64
+type Ordered interface {
+	~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 |
+		~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 |
+		~float64
 }
 
 // Node represents node of a splay tree
@@ -209,7 +209,7 @@ func (n *Node[T]) recalculateSize() {
 
 // recalculateSize recalculates size of given node
 func (n *Node[T]) kth(i int) *Node[T] {
-	if n.size - 1 == i {
+	if n.size-1 == i {
 		return n
 	}
 	if n.size > i {

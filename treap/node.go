@@ -1,18 +1,18 @@
 package treap
 
-type Ordered interface{
-~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 |
-~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 |
-~float64
+type Ordered interface {
+	~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 |
+		~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 |
+		~float64
 }
 
 // Node represents node of a treap
 type Node[T Ordered] struct {
 	priority int
-	value T
-	left  *Node[T]
-	right *Node[T]
-	size  int
+	value    T
+	left     *Node[T]
+	right    *Node[T]
+	size     int
 }
 
 // contains returns true if given node contains given value
