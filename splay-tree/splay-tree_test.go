@@ -49,7 +49,7 @@ func TestAll2(t *testing.T) {
 		t.Errorf("wrong size")
 	}
 	rand.Shuffle(len(permutation), func(i, j int) {
-		permutation[i], permutation[j] = permutation[i], permutation[j]
+		permutation[i], permutation[j] = permutation[j], permutation[i]
 	})
 	for i := range permutation {
 		tr.Remove(i)
