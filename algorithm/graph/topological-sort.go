@@ -29,7 +29,7 @@ func dfsTopSort[T any](vertex int, visited []byte, g *graph.Graph[T], l *list.Li
 	visited[vertex] = 1
 	for _, e := range g.Edges[vertex] {
 		if visited[e.To] == 1 {
-			// panic("cycle found") not sure what tot do here
+			// panic("cycle found") not sure what to do here
 		}
 		if visited[e.To] == 0 {
 			dfsTopSort(e.To, visited, g, l)
