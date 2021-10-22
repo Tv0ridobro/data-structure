@@ -19,3 +19,12 @@ func Equal[T Comparable](f, s []T) bool {
 	}
 	return true
 }
+
+// Reverse returns reversed slice
+func Reverse[T any](f []T) []T {
+	s := make([]T, len(f))
+	for i := 0; i < len(f); i++ {
+		s[i] = f[len(f)-i-1]
+	}
+	return s
+}
