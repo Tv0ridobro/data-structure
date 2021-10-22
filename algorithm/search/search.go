@@ -2,16 +2,11 @@ package search
 
 import (
 	"math/rand"
+	"constraints"
 )
 
-type Ordered interface {
-	~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 |
-		~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 |
-		~float64
-}
-
 // OrderStatistics returns kth largest element in given slice
-func OrderStatistics[T Ordered](elements []T, k int) T {
+func OrderStatistics[T constraints.Ordered](elements []T, k int) T {
 	l, r := 0, len(elements)
 	for {
 		p := partition(elements[l:r]) + l
@@ -29,7 +24,7 @@ func OrderStatistics[T Ordered](elements []T, k int) T {
 // partition picks random element as pivot and partitions slice in a way
 // that elements at lower indexes are less or equal than pivot
 // partition returns index of pivot
-func partition[T Ordered](elements []T) int {
+func partition[T constraints.Ordered](elements []T) int {
 	size := len(elements)
 	ind := rand.Intn(size)
 	elements[ind], elements[size-1] = elements[size-1], elements[ind]

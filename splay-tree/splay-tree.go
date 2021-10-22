@@ -2,14 +2,16 @@
 // See https://en.wikipedia.org/wiki/Splay_tree for more details
 package splay_tree
 
+import "constraints"
+
 // SplayTree represents a splay tree
 // Zero value of SplayTree is empty splay tree
-type SplayTree[T Ordered] struct {
+type SplayTree[T constraints.Ordered] struct {
 	root *Node[T]
 }
 
 // New returns an initialized splay tree
-func New[T Ordered]() *SplayTree[T] {
+func New[T constraints.Ordered]() *SplayTree[T] {
 	return &SplayTree[T]{}
 }
 

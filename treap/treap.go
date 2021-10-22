@@ -2,11 +2,15 @@
 // See https://en.wikipedia.org/wiki/Treap for more details
 package treap
 
-import "math/rand"
+import (
+	"math/rand"
+	"constraints"
+)
+
 
 // Treap represents a treap
 // Zero value of Treap is invalid treap, should be used only with New() or NewWithSource()
-type Treap[T Ordered] struct {
+type Treap[T constraints.Ordered] struct {
 	rand *rand.Rand
 	root *Node[T]
 }
@@ -14,14 +18,14 @@ type Treap[T Ordered] struct {
 // New returns an initialized treap
 // rand.Rand is used with zero seed
 // For custom rand.Rand use NewWithSource
-func New[T Ordered]() *Treap[T] {
+func New[T constraints.Ordered]() *Treap[T] {
 	return &Treap[T]{
 		rand: rand.New(rand.NewSource(0)),
 	}
 }
 
 // NewWithSource returns an initialized treap with given source
-func NewWithSource[T Ordered](s rand.Source) *Treap[T] {
+func NewWithSource[T constraints.Ordered](s rand.Source) *Treap[T] {
 	return &Treap[T]{
 		rand: rand.New(s),
 	}

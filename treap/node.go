@@ -1,13 +1,9 @@
 package treap
 
-type Ordered interface {
-	~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 |
-		~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 |
-		~float64
-}
+import "constraints"
 
 // Node represents node of a treap
-type Node[T Ordered] struct {
+type Node[T constraints.Ordered] struct {
 	priority int
 	value    T
 	left     *Node[T]
@@ -31,7 +27,7 @@ func (n *Node[T]) contains(value T) bool {
 }
 
 // tryRemoveMin tries to remove minimal element in given node if this element is the same as given one
-func tryRemoveMin[T Ordered](n *Node[T], expected T) *Node[T] {
+func tryRemoveMin[T constraints.Ordered](n *Node[T], expected T) *Node[T] {
 	if n == nil {
 		return nil
 	}
@@ -45,7 +41,7 @@ func tryRemoveMin[T Ordered](n *Node[T], expected T) *Node[T] {
 }
 
 // merge merges two nodes, all elements of left node should be less than any of right elements
-func merge[T Ordered](left *Node[T], right *Node[T]) *Node[T] {
+func merge[T constraints.Ordered](left *Node[T], right *Node[T]) *Node[T] {
 	if left == nil {
 		return right
 	}
@@ -64,7 +60,7 @@ func merge[T Ordered](left *Node[T], right *Node[T]) *Node[T] {
 }
 
 // split splits given node by given key into two nodes
-func split[T Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
+func split[T constraints.Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
 	if n == nil {
 		return nil, nil
 	}

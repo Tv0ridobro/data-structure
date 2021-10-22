@@ -1,13 +1,9 @@
 package splay_tree
 
-type Ordered interface {
-	~int | ~int8 | ~int16 | ~int32 | ~int64 | ~uint | ~uint8 |
-		~uint16 | ~uint32 | ~uint64 | ~uintptr | ~float32 |
-		~float64
-}
+import "constraints"
 
 // Node represents node of a splay tree
-type Node[T Ordered] struct {
+type Node[T constraints.Ordered] struct {
 	parent *Node[T]
 	right  *Node[T]
 	left   *Node[T]
@@ -39,7 +35,7 @@ func (n *Node[T]) isRoot() bool {
 }
 
 // setRight sets c as right child of p
-func setRight[T Ordered](p, c *Node[T]) {
+func setRight[T constraints.Ordered](p, c *Node[T]) {
 	if p == nil {
 		return
 	}
@@ -50,7 +46,7 @@ func setRight[T Ordered](p, c *Node[T]) {
 }
 
 // setRight sets c as left child of p
-func setLeft[T Ordered](p, c *Node[T]) {
+func setLeft[T constraints.Ordered](p, c *Node[T]) {
 	if p == nil {
 		return
 	}
@@ -152,7 +148,7 @@ func (n *Node[T]) min() *Node[T] {
 }
 
 // split splits given node by given key into two nodes
-func split[T Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
+func split[T constraints.Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
 	if n == nil {
 		return nil, nil
 	}
@@ -177,7 +173,7 @@ func split[T Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
 }
 
 // merge merges two nodes, all elements of left node should be less than any of right elements
-func merge[T Ordered](left *Node[T], right *Node[T]) *Node[T] {
+func merge[T constraints.Ordered](left *Node[T], right *Node[T]) *Node[T] {
 	if left == nil {
 		return right
 	}
