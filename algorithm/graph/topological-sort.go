@@ -5,7 +5,7 @@ import (
 	"github.com/Tv0ridobro/data-structure/list"
 )
 
-// TopologicalSort returns edges in topological order
+// TopologicalSort returns vertices in topological order
 func TopologicalSort[T any](g *graph.Graph[T]) []int {
 	if !g.IsDirected() {
 		ans := make([]int, g.Size())
