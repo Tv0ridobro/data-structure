@@ -1,3 +1,6 @@
+# data-structure
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Tv0ridobro/data-structure/build?&logo=github)
+
 Some data structures in go, using generics  
 To run use
 ```
