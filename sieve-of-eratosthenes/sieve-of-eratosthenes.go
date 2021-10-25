@@ -28,10 +28,10 @@ func New(size int) *SieveOfEratosthenes {
 	return &SieveOfEratosthenes{numbers: s, primes: primes}
 }
 
-// IsPrime returns true if given number is true
+// IsPrime returns true if given number is prime
 // false otherwise
 func (s *SieveOfEratosthenes) IsPrime(i int) bool {
-	if i == 0 {
+	if i <= 0 {
 		return false
 	}
 	return s.numbers[i] == i
