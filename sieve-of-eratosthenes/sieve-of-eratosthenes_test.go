@@ -1,4 +1,4 @@
-package sieve_of_eratosthenes
+package sieveoferatosthenes
 
 import (
 	"github.com/Tv0ridobro/data-structure/util"

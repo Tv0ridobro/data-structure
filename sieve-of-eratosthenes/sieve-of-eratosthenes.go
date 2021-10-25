@@ -1,6 +1,6 @@
-// Package sieve_of_eratosthenes implements a sieve of eratosthenes
+// Package sieveoferatosthenes implements a sieve of eratosthenes
 // See https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes for more details
-package sieve_of_eratosthenes
+package sieveoferatosthenes
 
 // SieveOfEratosthenes represents a sieve of eratosthenes
 // Zero value of SieveOfEratosthenes is invalid sieve, should be used only with New()

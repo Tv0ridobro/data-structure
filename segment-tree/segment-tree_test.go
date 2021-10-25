@@ -1,4 +1,4 @@
-package segment_tree
+package segmenttree
 
 import (
 	"github.com/Tv0ridobro/data-structure/util"

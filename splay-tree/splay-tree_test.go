@@ -1,4 +1,4 @@
-package splay_tree
+package splaytree
 
 import (
 	"github.com/Tv0ridobro/data-structure/util"
@@ -17,7 +17,7 @@ func TestAll(t *testing.T) {
 	}
 	for i := 0; i < 100; i++ {
 		if !tr.Contains(i) {
-			t.Errorf("dosnt contain %d", i)
+			t.Errorf("doesnt contain %d", i)
 		}
 	}
 	for i := 0; i < 100; i++ {

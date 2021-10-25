@@ -1,6 +1,6 @@
-// Package splay_tree implements a splay tree
+// Package splaytree implements a splay tree
 // See https://en.wikipedia.org/wiki/Splay_tree for more details
-package splay_tree
+package splaytree
 
 import "constraints"
 

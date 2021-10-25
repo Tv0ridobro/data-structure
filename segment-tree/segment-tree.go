@@ -1,6 +1,6 @@
-// Package segment_tree implements a segment tree
+// Package segmenttree implements a segment tree
 // See https://en.wikipedia.org/wiki/Segment_tree for more details
-package segment_tree
+package segmenttree
 
 import (
 	"github.com/Tv0ridobro/data-structure/util"

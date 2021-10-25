@@ -1,4 +1,4 @@
-package splay_tree
+package splaytree
 
 import "constraints"
 

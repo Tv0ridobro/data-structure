@@ -1,4 +1,4 @@
-package sparse_table
+package sparsetable
 
 import (
 	"github.com/Tv0ridobro/data-structure/util"

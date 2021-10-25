@@ -1,4 +1,4 @@
-package disjoint_set
+package disjointset
 
 import (
 	"testing"

@@ -1,6 +1,6 @@
-// Package disjoint_set implements a disjoint set
+// Package disjointset implements a disjoint set
 // See https://en.wikipedia.org/wiki/Disjoint-set_data_structure for more details
-package disjoint_set
+package disjointset
 
 // DisjointSet represents a disjoint set
 // Zero value of DisjointSet is disjoint set of 0 elements

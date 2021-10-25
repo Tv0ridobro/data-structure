@@ -1,5 +1,5 @@
-// Package sparse_table implements a sparse table
-package sparse_table
+// Package sparsetable implements a sparse table
+package sparsetable
 
 import (
 	"fmt"
