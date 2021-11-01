@@ -1,4 +1,4 @@
-// Package stack implements a doubly linked list
+// Package stack implements a stack
 // See https://en.wikipedia.org/wiki/Stack_(abstract_data_type) for more details
 package stack
 

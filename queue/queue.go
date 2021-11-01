@@ -1,4 +1,4 @@
-// Package queue implements a doubly linked list
+// Package queue implements a queue
 // See https://en.wikipedia.org/wiki/Queue_(abstract_data_type) for more details
 package queue
 
