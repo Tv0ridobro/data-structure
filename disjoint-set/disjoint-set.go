@@ -28,7 +28,6 @@ func New(size int) *DisjointSet {
 func (d *DisjointSet) Add() {
 	d.ranks = append(d.ranks, 0)
 	d.sizes = append(d.sizes, 1)
-	d.sizes = append(d.sizes, 1)
 	d.parents = append(d.parents, len(d.parents))
 }
 
