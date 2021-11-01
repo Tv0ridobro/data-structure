@@ -3,10 +3,9 @@
 package treap
 
 import (
-	"math/rand"
 	"constraints"
+	"math/rand"
 )
-
 
 // Treap represents a treap
 // Zero value of Treap is invalid treap, should be used only with New() or NewWithSource()

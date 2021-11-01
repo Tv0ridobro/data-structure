@@ -1,8 +1,8 @@
 package search
 
 import (
-	"math/rand"
 	"constraints"
+	"math/rand"
 )
 
 // OrderStatistics returns kth largest element in given slice
