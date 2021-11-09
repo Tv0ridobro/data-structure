@@ -1,7 +1,7 @@
 package list
 
 import (
-	"github.com/Tv0ridobro/data-structure/util"
+	"github.com/Tv0ridobro/data-structure/slices"
 	"math/rand"
 	"testing"
 )
@@ -115,7 +115,7 @@ func TestList_GetAllAndPeek(t *testing.T) {
 			t.Errorf("data[i] != list.Peek(i) %d %d", data[i], v)
 		}
 	}
-	if !util.Equal(data, list.GetAll()) {
+	if !slices.Equal(data, list.GetAll()) {
 		t.Error(data, " != ", list.GetAll())
 	}
 }
@@ -155,10 +155,10 @@ func TestList_Cut(t *testing.T) {
 	if v := r.Len(); v != 14 {
 		t.Errorf("l len %d != %d", v, 14)
 	}
-	if v := l.GetAll(); !util.Equal(v, []int{0, 1, 2, 3, 4, 5}) {
+	if v := l.GetAll(); !slices.Equal(v, []int{0, 1, 2, 3, 4, 5}) {
 		t.Errorf("l GetAll is wrong %v", v)
 	}
-	if v := r.GetAll(); !util.Equal(v, []int{6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}) {
+	if v := r.GetAll(); !slices.Equal(v, []int{6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}) {
 		t.Errorf("l GetAll is wrong %v", v)
 	}
 }

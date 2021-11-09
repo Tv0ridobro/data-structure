@@ -2,7 +2,7 @@ package list
 
 // Node represents node of a list
 type Node[T any] struct {
-	value T
+	Value T
 	next  *Node[T]
 	prev  *Node[T]
 }
@@ -15,18 +15,6 @@ func (n *Node[T]) Next() *Node[T] {
 // Prev returns previous Node
 func (n *Node[T]) Prev() *Node[T] {
 	return n.prev
-}
-
-// Value return value in Node
-func (n *Node[T]) Value() T {
-	return n.value
-}
-
-// Replace replaces old value to new one and return old one
-func (n *Node[T]) Replace(value T) T {
-	old := n.value
-	n.value = value
-	return old
 }
 
 // HasNext return true if next node exists

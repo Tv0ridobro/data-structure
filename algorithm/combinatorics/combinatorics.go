@@ -1,7 +1,7 @@
 package combinatorics
 
 import (
-	"github.com/Tv0ridobro/data-structure/util"
+	"github.com/Tv0ridobro/data-structure/slices"
 )
 
 // NextPermutation returns next permutation
@@ -17,7 +17,7 @@ func NextPermutation(s []int) []int {
 				}
 			}
 			next[i], next[z] = next[z], next[i]
-			next = append(next[:i+1], util.Reverse(next[i+1:])...)
+			next = append(next[:i+1], slices.Reverse(next[i+1:])...)
 			break
 		}
 	}

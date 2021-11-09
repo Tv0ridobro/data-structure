@@ -4,8 +4,8 @@ package skiplist
 
 import (
 	"constraints"
+	"github.com/Tv0ridobro/data-structure/math"
 	"github.com/Tv0ridobro/data-structure/stack"
-	"github.com/Tv0ridobro/data-structure/util"
 	"math/rand"
 )
 
@@ -19,7 +19,7 @@ type SkipList[T constraints.Ordered] struct {
 // NewWithProbability returns an initialized skiplist with given probability
 func NewWithProbability[T constraints.Ordered](p float64) *SkipList[T] {
 	n := &Node[T]{
-		value: util.SmallestValue[T](),
+		value: math.SmallestValue[T](),
 	}
 	return &SkipList[T]{
 		p:    p,

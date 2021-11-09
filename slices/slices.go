@@ -1,4 +1,4 @@
-package util
+package slices
 
 // Equal returns true if given slices contain same elements without checking capacity
 // False otherwise

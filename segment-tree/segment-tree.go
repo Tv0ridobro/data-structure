@@ -3,7 +3,7 @@
 package segmenttree
 
 import (
-	"github.com/Tv0ridobro/data-structure/util"
+	"github.com/Tv0ridobro/data-structure/math"
 )
 
 // SegmentTree represents a segment tree
@@ -18,7 +18,7 @@ type SegmentTree[T any] struct {
 // T should be monoid
 // op(op(a, b), c) = op(a, op(b, c)) and op(neutral, a) = op(a, neutral) = a
 func New[T any](elements []T, op func(T, T) T, neutral T) *SegmentTree[T] {
-	d := util.NearestPowerOf2(len(elements))
+	d := math.NearestPowerOf2(len(elements))
 	c := make([]T, d*2)
 	copied := copy(c[d:], elements)
 	for i := d + copied; i < 2*d; i++ {
@@ -64,8 +64,8 @@ func (s *SegmentTree[T]) query(i, left, right, l, r int) T {
 	}
 	middle := (left + right) / 2
 	return s.op(
-		s.query(i*2, left, middle, l, util.Min(r, middle)),
-		s.query(i*2+1, middle+1, right, util.Max(l, middle+1), r),
+		s.query(i*2, left, middle, l, math.Min(r, middle)),
+		s.query(i*2+1, middle+1, right, math.Max(l, middle+1), r),
 	)
 }
 

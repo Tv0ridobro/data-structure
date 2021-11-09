@@ -1,7 +1,7 @@
 package segmenttree
 
 import (
-	"github.com/Tv0ridobro/data-structure/util"
+	m "github.com/Tv0ridobro/data-structure/math"
 	"math"
 	"testing"
 )
@@ -30,7 +30,7 @@ func TestSum(t *testing.T) {
 }
 
 func TestMax(t *testing.T) {
-	tree := New[int]([]int{17, 2, 3, 4, 5}, util.Max, math.MinInt64)
+	tree := New[int]([]int{17, 2, 3, 4, 5}, m.Max, math.MinInt64)
 	tests := []struct {
 		l, r   int
 		answer int

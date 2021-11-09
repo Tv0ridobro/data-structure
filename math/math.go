@@ -1,4 +1,4 @@
-package util
+package math
 
 import (
 	"constraints"
@@ -83,4 +83,16 @@ func SmallestValue[T constraints.Ordered]() T {
 		v.SetString("")
 	}
 	return a
+}
+
+func Comparator[T constraints.Ordered]() func(T, T) int {
+	return func(a T, b T) int {
+		if a < b {
+			return -1
+		} else if a == b {
+			return 0
+		} else {
+			return 1
+		}
+	}
 }

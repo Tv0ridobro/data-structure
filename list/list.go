@@ -23,7 +23,7 @@ func New[T any]() *List[T] {
 func (l *List[T]) PushFront(value T) {
 	l.len++
 	nn := &Node[T]{
-		value: value,
+		Value: value,
 	}
 	if l.head == nil {
 		l.head = nn
@@ -45,7 +45,7 @@ func (l *List[T]) PushFront(value T) {
 func (l *List[T]) PushBack(value T) {
 	l.len++
 	nn := &Node[T]{
-		value: value,
+		Value: value,
 	}
 	if l.head == nil {
 		l.head = nn
@@ -72,7 +72,7 @@ func (l *List[T]) GetAll() []T {
 	data := make([]T, 0, l.len)
 	it := l.head
 	for it != nil {
-		data = append(data, it.value)
+		data = append(data, it.Value)
 		it = it.next
 	}
 	return data
@@ -86,11 +86,11 @@ func (l *List[T]) PopBack() T {
 	}
 	l.len--
 	if l.tail == nil {
-		v := l.head.value
+		v := l.head.Value
 		l.head = nil
 		return v
 	}
-	v := l.tail.value
+	v := l.tail.Value
 	l.tail.prev.next = nil
 	l.tail = l.tail.prev
 	if l.tail == l.head { // if 1 element in list
@@ -106,7 +106,7 @@ func (l *List[T]) PopFront() T {
 		panic("list is empty")
 	}
 	l.len--
-	v := l.head.value
+	v := l.head.Value
 	l.head = l.head.next
 	if l.head == nil {
 		return v
@@ -121,13 +121,13 @@ func (l *List[T]) PopFront() T {
 // ChangeAt changes value at given index
 // panic if list is empty
 func (l *List[T]) ChangeAt(i int, value T) {
-	l.Node(i).value = value
+	l.Node(i).Value = value
 }
 
 // Peek returns element at the given index
 // Panics if index is less or equal to len of the list
 func (l *List[T]) Peek(i int) T {
-	return l.Node(i).value
+	return l.Node(i).Value
 }
 
 // Node returns Node at the given index
@@ -213,7 +213,7 @@ func (l *List[T]) InsertAfter(node *Node[T], value T) {
 	}
 	l.len++
 	nn := &Node[T]{
-		value: value,
+		Value: value,
 	}
 	next := node.next
 	node.next = nn
@@ -246,7 +246,7 @@ func (l *List[T]) InsertBefore(n *Node[T], value T) {
 		return
 	}
 	l.len--
-	nn := &Node[T]{value: value}
+	nn := &Node[T]{Value: value}
 	prev := n.prev
 	prev.next = nn
 	nn.prev = prev
@@ -281,12 +281,12 @@ func (l *List[T]) Cut(i int) (*List[T], *List[T]) {
 // Back returns last element
 func (l *List[T]) Back() T {
 	if l.tail != nil {
-		return l.tail.value
+		return l.tail.Value
 	}
-	return l.head.value
+	return l.head.Value
 }
 
 // Front returns first element
 func (l *List[T]) Front() T {
-	return l.head.value
+	return l.head.Value
 }

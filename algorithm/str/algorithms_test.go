@@ -1,7 +1,7 @@
 package str
 
 import (
-	"github.com/Tv0ridobro/data-structure/util"
+	"github.com/Tv0ridobro/data-structure/slices"
 	"testing"
 )
 
@@ -16,7 +16,7 @@ func TestZfunction(t *testing.T) {
 	}
 	for i := range tests {
 		ans := ZFunction(tests[i].line)
-		if !util.Equal(ans, tests[i].zfunction) {
+		if !slices.Equal(ans, tests[i].zfunction) {
 			t.Errorf("test %d wrong answer for line %s", i+1, tests[i].line)
 			t.Errorf("%v %v", ans, tests[i].zfunction)
 		}
@@ -33,7 +33,7 @@ func TestPrefixFunction(t *testing.T) {
 	}
 	for i := range tests {
 		ans := PrefixFunction(tests[i].line)
-		if !util.Equal(ans, tests[i].prefix) {
+		if !slices.Equal(ans, tests[i].prefix) {
 			t.Errorf("test %d wrong answer for line %s", i+1, tests[i].line)
 			t.Errorf("%v %v", ans, tests[i].prefix)
 		}

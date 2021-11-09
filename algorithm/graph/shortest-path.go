@@ -3,7 +3,7 @@ package graphalgo
 import (
 	"github.com/Tv0ridobro/data-structure/graph"
 	"github.com/Tv0ridobro/data-structure/queue"
-	"github.com/Tv0ridobro/data-structure/util"
+	"github.com/Tv0ridobro/data-structure/slices"
 )
 
 // FindShortestPath returns vertices that shortest path contains
@@ -32,7 +32,7 @@ func FindShortestPath[T any](g *graph.Graph[T], start, end int) []int {
 				n = from[n]
 			}
 			ans = append(ans, start)
-			return util.Reverse(ans)
+			return slices.Reverse(ans)
 		}
 	}
 	return nil

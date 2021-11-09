@@ -1,7 +1,7 @@
 package splaytree
 
 import (
-	"github.com/Tv0ridobro/data-structure/util"
+	"github.com/Tv0ridobro/data-structure/slices"
 	"math/rand"
 	"sort"
 	"testing"
@@ -42,7 +42,7 @@ func TestAll2(t *testing.T) {
 		tr.Insert(i)
 	}
 	sort.Ints(permutation)
-	if !util.Equal(tr.GetAll(), permutation) {
+	if !slices.Equal(tr.GetAll(), permutation) {
 		t.Errorf("permutation doesn't equal getAll call")
 	}
 	if tr.Size() != 1000000 {

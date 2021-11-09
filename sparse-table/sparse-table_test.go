@@ -1,12 +1,12 @@
 package sparsetable
 
 import (
-	"github.com/Tv0ridobro/data-structure/util"
+	"github.com/Tv0ridobro/data-structure/math"
 	"testing"
 )
 
 func TestSparseTable_Query(t *testing.T) {
-	table := New(util.GCD, []int{2, 3, 5, 4, 6, 8, 16})
+	table := New(math.GCD, []int{2, 3, 5, 4, 6, 8, 16})
 	if v := table.Query(0, 2); v != 1 {
 		t.Errorf("wrong answer for query %d %d", v, 1)
 	}

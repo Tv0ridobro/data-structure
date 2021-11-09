@@ -1,7 +1,7 @@
 package str
 
 import (
-	"github.com/Tv0ridobro/data-structure/util"
+	"github.com/Tv0ridobro/data-structure/math"
 )
 
 // ZFunction returns z function of given string
@@ -10,7 +10,7 @@ func ZFunction(s string) []int {
 	l, r := 0, 0
 	for i := 1; i < len(z); i++ {
 		if i <= r {
-			z[i] = util.Min(r-i+1, z[i-l])
+			z[i] = math.Min(r-i+1, z[i-l])
 		}
 		for i+z[i] < len(z) && s[z[i]] == s[i+z[i]] {
 			z[i]++
