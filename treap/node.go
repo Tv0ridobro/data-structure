@@ -1,9 +1,7 @@
 package treap
 
-import "constraints"
-
 // Node represents node of a treap
-type Node[T constraints.Ordered] struct {
+type Node[T any] struct {
 	priority int
 	value    T
 	left     *Node[T]
@@ -13,35 +11,35 @@ type Node[T constraints.Ordered] struct {
 
 // contains returns true if given node contains given value
 // False otherwise
-func (n *Node[T]) contains(value T) bool {
+func (n *Node[T]) contains(value T, comp func(T, T) int) bool {
 	if n == nil {
 		return false
 	}
-	if n.value == value {
+	if comp(n.value, value) == 0 {
 		return true
 	}
-	if value < n.value {
-		return n.left.contains(value)
+	if comp(value, n.value) < 0 {
+		return n.left.contains(value, comp)
 	}
-	return n.right.contains(value)
+	return n.right.contains(value, comp)
 }
 
 // tryRemoveMin tries to remove minimal element in given node if this element is the same as given one
-func tryRemoveMin[T constraints.Ordered](n *Node[T], expected T) *Node[T] {
+func tryRemoveMin[T any](n *Node[T], expected T, comp func(T, T) int) *Node[T] {
 	if n == nil {
 		return nil
 	}
-	if n.value == expected {
+	if comp(n.value, expected) == 0 {
 		n = merge(n.left, n.right)
 		return n
 	}
-	n.left = tryRemoveMin(n.left, expected)
+	n.left = tryRemoveMin(n.left, expected, comp)
 	n.recalculateSize()
 	return n
 }
 
 // merge merges two nodes, all elements of left node should be less than any of right elements
-func merge[T constraints.Ordered](left *Node[T], right *Node[T]) *Node[T] {
+func merge[T any](left *Node[T], right *Node[T]) *Node[T] {
 	if left == nil {
 		return right
 	}
@@ -60,17 +58,17 @@ func merge[T constraints.Ordered](left *Node[T], right *Node[T]) *Node[T] {
 }
 
 // split splits given node by given key into two nodes
-func split[T constraints.Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
+func split[T any](n *Node[T], key T, comp func(T, T) int) (*Node[T], *Node[T]) {
 	if n == nil {
 		return nil, nil
 	}
-	if key > n.value {
-		left, right := split(n.right, key)
+	if comp(key, n.value) > 0 {
+		left, right := split(n.right, key, comp)
 		n.right = left
 		n.recalculateSize()
 		return n, right
 	}
-	left, right := split(n.left, key)
+	left, right := split(n.left, key, comp)
 	n.left = right
 	n.recalculateSize()
 	return left, n

@@ -2,17 +2,30 @@
 // See https://en.wikipedia.org/wiki/Splay_tree for more details
 package splaytree
 
-import "constraints"
+import (
+	"constraints"
+	"github.com/Tv0ridobro/data-structure/math"
+)
 
 // SplayTree represents a splay tree
 // Zero value of SplayTree is empty splay tree
-type SplayTree[T constraints.Ordered] struct {
+type SplayTree[T any] struct {
+	comp func(T, T) int
 	root *Node[T]
 }
 
 // New returns an initialized splay tree
 func New[T constraints.Ordered]() *SplayTree[T] {
-	return &SplayTree[T]{}
+	return &SplayTree[T]{
+		comp: math.Comparator[T](),
+	}
+}
+
+// NewWithComparator returns an initialized splay tree using given comparator
+func NewWithComparator[T any](comp func(T, T) int) *SplayTree[T] {
+	return &SplayTree[T]{
+		comp: comp,
+	}
 }
 
 // Insert inserts value in a tree
@@ -25,8 +38,8 @@ func (s *SplayTree[T]) Insert(value T) {
 		s.root = n
 		return
 	}
-	nn := s.root.find(value)
-	l, r := split(nn, value)
+	nn := s.root.find(value, s.comp)
+	l, r := split(nn, value, s.comp)
 	setLeft(n, l)
 	setRight(n, r)
 	s.root = n
@@ -38,8 +51,8 @@ func (s *SplayTree[T]) Contains(value T) bool {
 	if s.root == nil {
 		return false
 	}
-	s.root = s.root.find(value)
-	return s.root.value == value
+	s.root = s.root.find(value, s.comp)
+	return s.comp(s.root.value, value) == 0
 }
 
 // Size returns size of the tree
@@ -56,8 +69,8 @@ func (s *SplayTree[T]) Remove(value T) bool {
 	if s.root == nil {
 		return false
 	}
-	s.root = s.root.find(value)
-	if s.root.value != value {
+	s.root = s.root.find(value, s.comp)
+	if s.comp(s.root.value, value) != 0 {
 		return false
 	}
 	l, r := s.root.left, s.root.right

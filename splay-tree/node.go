@@ -1,9 +1,7 @@
 package splaytree
 
-import "constraints"
-
 // Node represents node of a splay tree
-type Node[T constraints.Ordered] struct {
+type Node[T any] struct {
 	parent *Node[T]
 	right  *Node[T]
 	left   *Node[T]
@@ -35,7 +33,7 @@ func (n *Node[T]) isRoot() bool {
 }
 
 // setRight sets c as right child of p
-func setRight[T constraints.Ordered](p, c *Node[T]) {
+func setRight[T any](p, c *Node[T]) {
 	if p == nil {
 		return
 	}
@@ -46,7 +44,7 @@ func setRight[T constraints.Ordered](p, c *Node[T]) {
 }
 
 // setRight sets c as left child of p
-func setLeft[T constraints.Ordered](p, c *Node[T]) {
+func setLeft[T any](p, c *Node[T]) {
 	if p == nil {
 		return
 	}
@@ -58,26 +56,26 @@ func setLeft[T constraints.Ordered](p, c *Node[T]) {
 
 // find returns node containing given value
 // or last node reached
-func (n *Node[T]) find(value T) *Node[T] {
+func (n *Node[T]) find(value T, comp func(T, T) int) *Node[T] {
 	if n == nil {
 		return nil
 	}
-	if n.value == value {
+	if comp(n.value, value) == 0 {
 		n.splay()
 		return n
 	}
-	if value < n.value {
+	if comp(value, n.value) < 0 {
 		if n.left == nil {
 			n.splay()
 			return n
 		}
-		return n.left.find(value)
+		return n.left.find(value, comp)
 	} else {
 		if n.right == nil {
 			n.splay()
 			return n
 		}
-		return n.right.find(value)
+		return n.right.find(value, comp)
 	}
 }
 
@@ -148,12 +146,12 @@ func (n *Node[T]) min() *Node[T] {
 }
 
 // split splits given node by given key into two nodes
-func split[T constraints.Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
+func split[T any](n *Node[T], key T, comp func(T, T) int) (*Node[T], *Node[T]) {
 	if n == nil {
 		return nil, nil
 	}
-	nn := n.find(key)
-	if key <= n.value {
+	nn := n.find(key, comp)
+	if comp(key, n.value) <= 0 {
 		left := nn.left
 		if left != nil {
 			left.parent = nil
@@ -173,7 +171,7 @@ func split[T constraints.Ordered](n *Node[T], key T) (*Node[T], *Node[T]) {
 }
 
 // merge merges two nodes, all elements of left node should be less than any of right elements
-func merge[T constraints.Ordered](left *Node[T], right *Node[T]) *Node[T] {
+func merge[T any](left *Node[T], right *Node[T]) *Node[T] {
 	if left == nil {
 		return right
 	}

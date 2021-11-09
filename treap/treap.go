@@ -4,12 +4,14 @@ package treap
 
 import (
 	"constraints"
+	"github.com/Tv0ridobro/data-structure/math"
 	"math/rand"
 )
 
 // Treap represents a treap
 // Zero value of Treap is invalid treap, should be used only with New() or NewWithSource()
-type Treap[T constraints.Ordered] struct {
+type Treap[T any] struct {
+	comp func(T, T) int
 	rand *rand.Rand
 	root *Node[T]
 }
@@ -20,14 +22,21 @@ type Treap[T constraints.Ordered] struct {
 func New[T constraints.Ordered]() *Treap[T] {
 	return &Treap[T]{
 		rand: rand.New(rand.NewSource(0)),
+		comp: math.Comparator[T](),
 	}
 }
 
-// NewWithSource returns an initialized treap with given source
-func NewWithSource[T constraints.Ordered](s rand.Source) *Treap[T] {
+// NewWithComparator returns an initialized treap using given comparator
+func NewWithComparator[T any](comp func(T, T) int) *Treap[T] {
 	return &Treap[T]{
-		rand: rand.New(s),
+		rand: rand.New(rand.NewSource(0)),
+		comp: comp,
 	}
+}
+
+// SetSource sets rand source
+func (t *Treap[T]) SetSource(s rand.Source) {
+	t.rand = rand.New(s)
 }
 
 // Insert inserts value in a tree
@@ -41,7 +50,7 @@ func (t *Treap[T]) Insert(value T) {
 		t.root = n
 		return
 	}
-	left, right := split(t.root, n.value)
+	left, right := split(t.root, n.value, t.comp)
 	left1 := merge(left, n)
 	right1 := merge(left1, right)
 	t.root = right1
@@ -54,9 +63,9 @@ func (t *Treap[T]) Remove(value T) bool {
 		return false
 	}
 	oldSize := t.root.size
-	left, right := split(t.root, value)
+	left, right := split(t.root, value, t.comp)
 	if right != nil {
-		right = tryRemoveMin(right, value)
+		right = tryRemoveMin(right, value, t.comp)
 	}
 	t.root = merge(left, right)
 	return oldSize != t.Size()
@@ -67,7 +76,7 @@ func (t *Treap[T]) Contains(value T) bool {
 	if t.root == nil {
 		return false
 	}
-	return t.root.contains(value)
+	return t.root.contains(value, t.comp)
 }
 
 // Size returns size of the tree
