@@ -2,10 +2,6 @@
 // See https://en.wikipedia.org/wiki/Linked_list for more details
 package list
 
-import (
-	"fmt"
-)
-
 // List represents a doubly linked list
 // Zero value of List is empty list
 type List[T any] struct {
@@ -79,10 +75,11 @@ func (l *List[T]) GetAll() []T {
 }
 
 // PopBack removes last element of the list
-// Panics if list is empty
+// Returns zero value if list is empty
 func (l *List[T]) PopBack() T {
 	if l.len == 0 {
-		panic("list is empty")
+		var empty T
+		return empty
 	}
 	l.len--
 	if l.tail == nil {
@@ -100,10 +97,11 @@ func (l *List[T]) PopBack() T {
 }
 
 // PopFront removes first element of the list
-// Panics if list is empty
+// Returns zero value if list is empty
 func (l *List[T]) PopFront() T {
 	if l.len == 0 {
-		panic("list is empty")
+		var empty T
+		return empty
 	}
 	l.len--
 	v := l.head.Value
@@ -119,22 +117,23 @@ func (l *List[T]) PopFront() T {
 }
 
 // ChangeAt changes value at given index
-// panic if list is empty
+// Returns zero value if list is empty
 func (l *List[T]) ChangeAt(i int, value T) {
 	l.Node(i).Value = value
 }
 
 // Peek returns element at the given index
-// Panics if index is less or equal to len of the list
+// Returns zero value if index is less or equal to len of the list
 func (l *List[T]) Peek(i int) T {
 	return l.Node(i).Value
 }
 
 // Node returns Node at the given index
-// Panics if index is less or equal to len of the list
+// Returns zero value if index is less or equal to len of the list
 func (l *List[T]) Node(i int) *Node[T] {
 	if i >= l.len {
-		panic(fmt.Sprintf("index higher than len %d %d", i, l.len))
+		var empty *Node[T]
+		return empty
 	}
 	if i <= l.len/2 {
 		it := l.head

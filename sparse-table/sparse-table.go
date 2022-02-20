@@ -2,7 +2,6 @@
 package sparsetable
 
 import (
-	"fmt"
 	"github.com/Tv0ridobro/data-structure/math"
 )
 
@@ -38,7 +37,8 @@ func New[T any](op func(T, T) T, elements []T) *SparseTable[T] {
 // Query returns result of operation on elements[l:r+1]
 func (s *SparseTable[T]) Query(l, r int) T {
 	if l > r || l < 0 || r >= len(s.elements) {
-		panic(fmt.Sprintf("wrong indices %d %d", l, r))
+		var empty T
+		return empty
 	}
 	log := math.Log2(r - l + 1)
 	return s.op(s.elements[l][log], s.elements[r-(1<<log)+1][log])

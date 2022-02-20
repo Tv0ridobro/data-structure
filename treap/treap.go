@@ -3,8 +3,8 @@
 package treap
 
 import (
-	"constraints"
 	"github.com/Tv0ridobro/data-structure/math"
+	"golang.org/x/exp/constraints"
 	"math/rand"
 )
 

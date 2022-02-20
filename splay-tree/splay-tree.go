@@ -3,8 +3,8 @@
 package splaytree
 
 import (
-	"constraints"
 	"github.com/Tv0ridobro/data-structure/math"
+	"golang.org/x/exp/constraints"
 )
 
 // SplayTree represents a splay tree
@@ -88,7 +88,8 @@ func (s *SplayTree[T]) Remove(value T) bool {
 // Kth returns kth greatest element
 func (s *SplayTree[T]) Kth(i int) T {
 	if i > s.Size() {
-		panic("i is greater than size")
+		var empty T
+		return empty
 	}
 	n := s.root.kth(i)
 	return n.value

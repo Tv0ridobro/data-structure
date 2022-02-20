@@ -1,11 +1,12 @@
 package search
 
 import (
-	"constraints"
+	"golang.org/x/exp/constraints"
 	"math/rand"
 )
 
 // OrderStatistics returns kth largest element in given slice
+// Changes order in elements
 func OrderStatistics[T constraints.Ordered](elements []T, k int) T {
 	l, r := 0, len(elements)
 	for {

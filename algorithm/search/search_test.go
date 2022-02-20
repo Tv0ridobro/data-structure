@@ -20,13 +20,11 @@ func TestOrderStatistics(t *testing.T) {
 			perm[j] = rand.Intn(10)
 		}
 		ind := rand.Intn(30)
-		ans := OrderStatistics(perm, ind)
 		v := append([]int{}, perm...)
+		ans := OrderStatistics(v, ind)
 		sort.Ints(perm)
 		if ans != perm[ind] {
 			t.Errorf("%d != %d %v %v %d\n", ans, perm[ind], perm, v, ind)
 		}
 	}
-	/*sl := make([]int, 100000)
-	OrderStatistics(sl, 50000)*/
 }

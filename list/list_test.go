@@ -6,29 +6,6 @@ import (
 	"testing"
 )
 
-func TestList_PeekPanic(t *testing.T) {
-	list := New[int]()
-	defer func() {
-		if r := recover(); r == nil {
-			t.Error("The code did not panic")
-		}
-	}()
-	list.Peek(0)
-}
-
-func TestList_PeekPanic2(t *testing.T) {
-	defer func() {
-		if r := recover(); r == nil {
-			t.Error("The code did not panic")
-		}
-	}()
-	list := New[int]()
-	for i := 0; i < 20; i++ {
-		list.PushBack(i)
-	}
-	list.Peek(30)
-}
-
 func TestList_PopBack(t *testing.T) {
 	list := New[int]()
 	for i := 0; i < 20; i++ {
@@ -51,26 +28,6 @@ func TestList_PopFront(t *testing.T) {
 			t.Errorf("Wrong value got %d expected %d", v, i)
 		}
 	}
-}
-
-func TestList_PopBackPanic(t *testing.T) {
-	defer func() {
-		if r := recover(); r == nil {
-			t.Errorf("The code did not panic")
-		}
-	}()
-	list := New[int]()
-	list.PopBack()
-}
-
-func TestList_PopFrontPanic(t *testing.T) {
-	defer func() {
-		if r := recover(); r == nil {
-			t.Error("The code did not panic")
-		}
-	}()
-	list := New[int]()
-	list.PopFront()
 }
 
 func TestList_Len(t *testing.T) {
@@ -118,16 +75,6 @@ func TestList_GetAllAndPeek(t *testing.T) {
 	if !slices.Equal(data, list.GetAll()) {
 		t.Error(data, " != ", list.GetAll())
 	}
-}
-
-func TestList_ChangeAtPanic(t *testing.T) {
-	defer func() {
-		if r := recover(); r == nil {
-			t.Error("The code did not panic")
-		}
-	}()
-	list := New[int]()
-	list.ChangeAt(0, 3)
 }
 
 func TestList_ChangeAt(t *testing.T) {

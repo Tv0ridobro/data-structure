@@ -3,9 +3,9 @@
 package skiplist
 
 import (
-	"constraints"
 	"github.com/Tv0ridobro/data-structure/math"
 	"github.com/Tv0ridobro/data-structure/stack"
+	"golang.org/x/exp/constraints"
 	"math/rand"
 )
 

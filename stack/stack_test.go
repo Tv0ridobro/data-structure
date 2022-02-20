@@ -34,16 +34,6 @@ func TestStack_Peek(t *testing.T) {
 	}
 }
 
-func TestStack_PeekPanic(t *testing.T) {
-	defer func() {
-		if r := recover(); r == nil {
-			t.Error("The code did not panic")
-		}
-	}()
-	stack := New[int]()
-	stack.Peek()
-}
-
 func TestStack_Pop(t *testing.T) {
 	stack := New[int]()
 	stack.Push(0)
@@ -54,16 +44,6 @@ func TestStack_Pop(t *testing.T) {
 	if v := stack.Pop(); v != 99 {
 		t.Errorf("wrong pop %d != %d", v, 99)
 	}
-}
-
-func TestStack_PopPanic(t *testing.T) {
-	defer func() {
-		if r := recover(); r == nil {
-			t.Error("The code did not panic")
-		}
-	}()
-	stack := New[int]()
-	stack.Pop()
 }
 
 func TestStack_Size(t *testing.T) {

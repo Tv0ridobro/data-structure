@@ -1,7 +1,7 @@
 package math
 
 import (
-	"constraints"
+	"golang.org/x/exp/constraints"
 	"math"
 	"reflect"
 )

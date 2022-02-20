@@ -1,6 +1,6 @@
 package skiplist
 
-import "constraints"
+import "golang.org/x/exp/constraints"
 
 // Node represents node of a list
 type Node[T constraints.Ordered] struct {
