@@ -1,5 +1,5 @@
 # data-structure
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/Tv0ridobro/data-structure/build?&logo=github)
+![GitHub Workflow Status](https://github.com/Tv0ridobro/data-structure/actions/workflows/go.yml/badge.svg)
 
 Some data structures in go, using generics  
 To run use
