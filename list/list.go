@@ -125,15 +125,19 @@ func (l *List[T]) ChangeAt(i int, value T) {
 // Peek returns element at the given index
 // Returns zero value if index is less or equal to len of the list
 func (l *List[T]) Peek(i int) T {
-	return l.Node(i).Value
+	v := l.Node(i)
+	if v == nil {
+		var a T
+		return a
+	}
+	return v.Value
 }
 
 // Node returns Node at the given index
 // Returns zero value if index is less or equal to len of the list
 func (l *List[T]) Node(i int) *Node[T] {
-	if i >= l.len {
-		var empty *Node[T]
-		return empty
+	if i < 0 || i >= l.Len() {
+		return nil
 	}
 	if i <= l.len/2 {
 		it := l.head
@@ -258,6 +262,9 @@ func (l *List[T]) InsertBefore(n *Node[T], value T) {
 // for example cut(1) for list {1,2,3,4,5} returns {1,2}, {3,4,5}
 func (l *List[T]) Cut(i int) (*List[T], *List[T]) {
 	n := l.Node(i)
+	if n == nil {
+		return l, New[T]()
+	}
 	other := New[T]()
 	other.len = l.len - i - 1
 	l.len = i + 1
@@ -279,6 +286,10 @@ func (l *List[T]) Cut(i int) (*List[T], *List[T]) {
 
 // Back returns last element
 func (l *List[T]) Back() T {
+	if l.head == nil {
+		var a T
+		return a
+	}
 	if l.tail != nil {
 		return l.tail.Value
 	}
@@ -287,5 +298,9 @@ func (l *List[T]) Back() T {
 
 // Front returns first element
 func (l *List[T]) Front() T {
+	if l.head == nil {
+		var a T
+		return a
+	}
 	return l.head.Value
 }

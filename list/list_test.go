@@ -18,6 +18,89 @@ func TestList_PopBack(t *testing.T) {
 	}
 }
 
+func TestList_PopBackEmpty(t *testing.T) {
+	list := New[int]()
+	var a int
+	for i := 0; i < 20; i++ {
+		v := list.PopBack()
+		if v != a {
+			t.Errorf("Wrong value got %d expected %d", v, a)
+		}
+	}
+}
+
+func TestList_PopFrontEmpty(t *testing.T) {
+	list := New[int]()
+	var a int
+	for i := 0; i < 20; i++ {
+		v := list.PopFront()
+		if v != a {
+			t.Errorf("Wrong value got %d expected %d", v, a)
+		}
+	}
+}
+
+func TestList_NodeEmpty(t *testing.T) {
+	list := New[int]()
+	for i := 0; i < 20; i++ {
+		v := list.Node(i)
+		if v != nil {
+			t.Errorf("Wrong value got %v expected %v", v, nil)
+		}
+	}
+}
+
+func TestList_Back(t *testing.T) {
+	list := New[int]()
+	var a int
+	if v := list.Back(); v != a {
+		t.Errorf("Wrong value got %d expected %d", v, a)
+	}
+	list.PushBack(2)
+	if v := list.Back(); v != 2 {
+		t.Errorf("Wrong value got %d expected %d", v, 2)
+	}
+	list.PushBack(3)
+	if v := list.Back(); v != 3 {
+		t.Errorf("Wrong value got %d expected %d", v, 3)
+	}
+}
+
+func TestList_Clear(t *testing.T) {
+	list := New[int]()
+	list.PushBack(10)
+	list.PushBack(2)
+	list.PushBack(27)
+	list.PushFront(5)
+	list.PushBack(8)
+	list.PushBack(9)
+	list.Clear()
+	var a int
+	size := list.Len()
+	if size != 0 {
+		t.Errorf("Wrong value got %d expected %d", size, 0)
+	}
+	for i := 0; i < 100; i++ {
+		v := list.PopBack()
+		if v != a {
+			t.Errorf("Wrong value got %d expected %d", v, a)
+		}
+	}
+}
+
+func TestList_Reverse(t *testing.T) {
+	list := New[int]()
+	list.Reverse()
+	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
+	for i := 0; i < len(values); i++ {
+		list.PushBack(values[len(values)-i-1])
+	}
+	list.Reverse()
+	if v := list.GetAll(); !slices.Equal(v, values) {
+		t.Errorf("Wrong value got %v expected %v", v, values)
+	}
+}
+
 func TestList_PopFront(t *testing.T) {
 	list := New[int]()
 	for i := 0; i < 20; i++ {
@@ -27,6 +110,33 @@ func TestList_PopFront(t *testing.T) {
 		if v := list.PopFront(); v != i {
 			t.Errorf("Wrong value got %d expected %d", v, i)
 		}
+	}
+}
+
+func TestList_FrontAndBack(t *testing.T) {
+	list := New[int]()
+	value := 10
+	list.PushBack(value)
+	v1 := list.Back()
+	v2 := list.Front()
+	if v1 != value {
+		t.Errorf("Wrong value got %d expected %d", v1, value)
+	}
+	if v2 != value {
+		t.Errorf("Wrong value got %d expected %d", v2, value)
+	}
+}
+
+func TestList_FrontAndBackEmpty(t *testing.T) {
+	list := New[int]()
+	var value int
+	v1 := list.Back()
+	v2 := list.Front()
+	if v1 != value {
+		t.Errorf("Wrong value got %d expected %d", v1, value)
+	}
+	if v2 != value {
+		t.Errorf("Wrong value got %d expected %d", v2, value)
 	}
 }
 
@@ -90,6 +200,15 @@ func TestList_ChangeAt(t *testing.T) {
 	}
 }
 
+func TestList_PeekEmpty(t *testing.T) {
+	list := New[int]()
+	v := list.Peek(10)
+	var a int
+	if v != a {
+		t.Errorf("Wrong value got %d expected %d", v, a)
+	}
+}
+
 func TestList_Cut(t *testing.T) {
 	list := New[int]()
 	for i := 0; i < 20; i++ {
@@ -107,5 +226,59 @@ func TestList_Cut(t *testing.T) {
 	}
 	if v := r.GetAll(); !slices.Equal(v, []int{6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}) {
 		t.Errorf("l GetAll is wrong %v", v)
+	}
+}
+
+func TestList_Cut2(t *testing.T) {
+	list := New[int]()
+	list.PushBack(1)
+	l, r := list.Cut(0)
+	if v := l.GetAll(); !slices.Equal(v, []int{1}) {
+		t.Errorf("Wrong value got %v expected %v", v, []int{1})
+	}
+	if v := r.GetAll(); !slices.Equal(v, []int{}) {
+		t.Errorf("Wrong value got %v expected %v", v, []int{})
+	}
+}
+
+func TestList_Cut3(t *testing.T) {
+	list := New[int]()
+	list.PushBack(1)
+	l, r := list.Cut(1)
+	if v := l.GetAll(); !slices.Equal(v, []int{1}) {
+		t.Errorf("Wrong value got %d expected %d", v, []int{1})
+	}
+	if v := r.GetAll(); !slices.Equal(v, []int{}) {
+		t.Errorf("Wrong value got %d expected %d", v, []int{})
+	}
+}
+
+func TestList_Merge(t *testing.T) {
+	tests := []struct {
+		values1 []int
+		values2 []int
+	}{
+		{[]int{1, 2, 3, 4, 5}, []int{6, 7, 8, 9, 10}},
+		{[]int{}, []int{6, 7, 8, 9, 10}},
+		{[]int{1, 2, 3, 4, 5}, []int{}},
+		{[]int{1}, []int{6, 7, 8, 9, 10}},
+		{[]int{1, 2, 3, 4, 5}, []int{6}},
+	}
+	for _, test := range tests {
+		list1 := New[int]()
+		list2 := New[int]()
+		for i := 0; i < len(test.values1); i++ {
+			list1.PushBack(i)
+		}
+		for i := 0; i < len(test.values2); i++ {
+			list2.PushBack(i)
+		}
+		list1.Merge(list2)
+		if v := list1.Len(); v != len(test.values1)+len(test.values2) {
+			t.Errorf("Wrong value got %d expected %d", v, len(test.values1)+len(test.values2))
+		}
+		if v := list1.GetAll(); slices.Equal(v, append(test.values1, test.values2...)) {
+			t.Errorf("Wrong value got %d expected %d", v, append(test.values1, test.values2...))
+		}
 	}
 }
