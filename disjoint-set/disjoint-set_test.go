@@ -5,6 +5,7 @@ import (
 )
 
 func TestAllConnected(t *testing.T) {
+	t.Parallel()
 	ds := New(100)
 	for i := 0; i < 99; i++ {
 		ds.Union(i, i+1)
@@ -15,6 +16,7 @@ func TestAllConnected(t *testing.T) {
 }
 
 func TestInit(t *testing.T) {
+	t.Parallel()
 	ds := New(100)
 	for i := 0; i < 100; i++ {
 		a := ds.Get(i)

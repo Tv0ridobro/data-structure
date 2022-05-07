@@ -3,13 +3,13 @@
 package sieveoferatosthenes
 
 // SieveOfEratosthenes represents a sieve of eratosthenes
-// Zero value of SieveOfEratosthenes is invalid sieve, should be used only with New()
+// Zero value of SieveOfEratosthenes is invalid sieve, should be used only with New().
 type SieveOfEratosthenes struct {
 	numbers []int
 	primes  []int
 }
 
-// New returns an initialized SieveOfEratosthenes
+// New returns an initialized SieveOfEratosthenes.
 func New(size int) *SieveOfEratosthenes {
 	s := make([]int, size)
 	primes := make([]int, 0)
@@ -29,7 +29,7 @@ func New(size int) *SieveOfEratosthenes {
 }
 
 // IsPrime returns true if given number is prime
-// false otherwise
+// false otherwise.
 func (s *SieveOfEratosthenes) IsPrime(i int) bool {
 	if i <= 0 {
 		return false
@@ -37,7 +37,7 @@ func (s *SieveOfEratosthenes) IsPrime(i int) bool {
 	return s.numbers[i] == i
 }
 
-// GetDelimiters returns all delimiters of given number
+// GetDelimiters returns all delimiters of given number.
 func (s SieveOfEratosthenes) GetDelimiters(i int) []int {
 	delim := make([]int, 0)
 	for s.numbers[i] != i {
@@ -48,7 +48,7 @@ func (s SieveOfEratosthenes) GetDelimiters(i int) []int {
 	return delim
 }
 
-// Primes return all primes number up to size of sieve
+// Primes return all primes number up to size of sieve.
 func (s SieveOfEratosthenes) Primes() []int {
 	c := make([]int, len(s.primes))
 	copy(c, s.primes)

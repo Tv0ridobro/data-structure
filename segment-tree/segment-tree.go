@@ -6,17 +6,17 @@ import (
 	"github.com/Tv0ridobro/data-structure/math"
 )
 
-// SegmentTree represents a segment tree
-// Zero value of SegmentTree is invalid segment tree, should be used only with New()
+// SegmentTree represents a segment tree.
+// Zero value of SegmentTree is invalid segment tree, should be used only with New().
 type SegmentTree[T any] struct {
 	op       func(T, T) T
 	neutral  T
 	elements []T
 }
 
-// New returns new SegmentTree
-// T should be monoid
-// op(op(a, b), c) = op(a, op(b, c)) and op(neutral, a) = op(a, neutral) = a
+// New returns new SegmentTree.
+// T should be monoid.
+// op(op(a, b), c) = op(a, op(b, c)) and op(neutral, a) = op(a, neutral) = a.
 func New[T any](elements []T, op func(T, T) T, neutral T) *SegmentTree[T] {
 	d := math.NearestPowerOf2(len(elements))
 	c := make([]T, d*2)
@@ -33,9 +33,9 @@ func New[T any](elements []T, op func(T, T) T, neutral T) *SegmentTree[T] {
 	return &st
 }
 
-// build recursively builds segment tree
-// i is current index in tree
-// left and right are its bound
+// build recursively builds segment tree.
+// i is current index in tree,
+// left and right are its bound.
 func (s *SegmentTree[T]) build(i, left, right int) {
 	if right == left {
 		return
@@ -46,7 +46,7 @@ func (s *SegmentTree[T]) build(i, left, right int) {
 	s.elements[i] = s.op(s.elements[2*i], s.elements[2*i+1])
 }
 
-// Query returns result of operation on given segment
+// Query returns result of operation on given segment.
 func (s *SegmentTree[T]) Query(l, r int) T {
 	return s.query(1, 0, len(s.elements)/2-1, l, r)
 }
@@ -54,7 +54,7 @@ func (s *SegmentTree[T]) Query(l, r int) T {
 // query returns result of operation on given segment
 // i is current index in tree
 // l and r are its bound
-// left and right are initial values of query
+// left and right are initial values of query.
 func (s *SegmentTree[T]) query(i, left, right, l, r int) T {
 	if l > r {
 		return s.neutral
@@ -69,7 +69,7 @@ func (s *SegmentTree[T]) query(i, left, right, l, r int) T {
 	)
 }
 
-// Modify modifies value at given index
+// Modify modifies value at given index.
 func (s *SegmentTree[T]) Modify(i int, value T) {
 	s.modify(1, i, 0, len(s.elements)/2-1, value)
 	return
@@ -78,14 +78,13 @@ func (s *SegmentTree[T]) Modify(i int, value T) {
 // modify modifies value at given index
 // i is current index in tree
 // left and right are its bound
-// ind is initial index
+// ind is initial index.
 func (s *SegmentTree[T]) modify(i, ind, left, right int, value T) {
 	if right == left {
 		s.elements[i] = value
 		return
 	}
-	middle := (left + right) / 2
-	if ind <= middle {
+	if middle := (left + right) / 2; ind <= middle {
 		s.modify(i*2, ind, left, middle, value)
 	} else {
 		s.modify(i*2+1, ind, middle+1, right, value)

@@ -1,7 +1,7 @@
 package slices
 
 // Equal returns true if given slices contain same elements without checking capacity
-// False otherwise
+// false otherwise.
 func Equal[T comparable](f, s []T) bool {
 	if len(f) != len(s) {
 		return false
@@ -14,7 +14,7 @@ func Equal[T comparable](f, s []T) bool {
 	return true
 }
 
-// Reverse returns reversed slice
+// Reverse returns reversed slice.
 func Reverse[T any](f []T) []T {
 	s := make([]T, len(f))
 	for i := 0; i < len(f); i++ {

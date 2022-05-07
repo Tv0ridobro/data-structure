@@ -1,0 +1,60 @@
+linters:
+  enable:
+    - paralleltest
+    - gci
+    - revive
+    - gofumpt
+    - gocritic
+    - forbidigo
+    - lll
+    - whitespace
+    - ifshort
+    - gofmt
+    - godot
+    - goimports
+    - exhaustive
+    - asciicheck
+    - bidichk
+    - cyclop
+    - decorder
+    - dogsled
+    - dupl
+    - errname
+    - errorlint
+    - exhaustivestruct
+    - exportloopref
+    - forcetypeassert
+    - funlen
+    - gochecknoglobals
+    - nakedret
+    - nestif
+    - nilnil
+    - nolintlint
+    - prealloc
+    - predeclared
+    - thelper
+    - unconvert
+    - wrapcheck
+    - gocognit
+    - goconst
+    - gocyclo
+    - godox
+    - goerr113
+    - goprintffuncname
+    - grouper
+    - importas
+    - maintidx
+    - makezero
+    - misspell
+  disable:
+    # temporally disabled because of 1.18
+    - unused
+    - staticcheck
+    - structcheck
+    - stylecheck
+    - unparam
+    - wastedassign
+    - nilerr
+    - tparallel
+    - gosimple
+

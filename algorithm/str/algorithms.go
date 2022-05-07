@@ -4,7 +4,7 @@ import (
 	"github.com/Tv0ridobro/data-structure/math"
 )
 
-// ZFunction returns z function of given string
+// ZFunction returns z function of given string.
 func ZFunction(s string) []int {
 	z := make([]int, len(s))
 	l, r := 0, 0
@@ -22,7 +22,7 @@ func ZFunction(s string) []int {
 	return z
 }
 
-// PrefixFunction returns prefix function of given string
+// PrefixFunction returns prefix function of given string.
 func PrefixFunction(s string) []int {
 	p := make([]int, len(s))
 	for i := 1; i < len(s); i++ {

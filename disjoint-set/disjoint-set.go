@@ -3,14 +3,14 @@
 package disjointset
 
 // DisjointSet represents a disjoint set
-// Zero value of DisjointSet is disjoint set of 0 elements
+// Zero value of DisjointSet is disjoint set of 0 elements.
 type DisjointSet struct {
 	ranks   []int
 	parents []int
 	sizes   []int
 }
 
-// New returns an initialized disjoint set of given size
+// New returns an initialized disjoint set of given size.
 func New(size int) *DisjointSet {
 	d := &DisjointSet{
 		ranks:   make([]int, size),
@@ -24,14 +24,14 @@ func New(size int) *DisjointSet {
 	return d
 }
 
-// Add adds new element to DisjointSet
+// Add adds new element to DisjointSet.
 func (d *DisjointSet) Add() {
 	d.ranks = append(d.ranks, 0)
 	d.sizes = append(d.sizes, 1)
 	d.parents = append(d.parents, len(d.parents))
 }
 
-// Get returns root element of set containing given element
+// Get returns root element of set containing given element.
 func (d *DisjointSet) Get(x int) int {
 	if d.parents[x] != x {
 		d.parents[x] = d.Get(d.parents[x])
@@ -39,12 +39,12 @@ func (d *DisjointSet) Get(x int) int {
 	return d.parents[x]
 }
 
-// Size returns size of set containing given element
+// Size returns size of set containing given element.
 func (d *DisjointSet) Size(x int) int {
 	return d.sizes[d.Get(x)]
 }
 
-// Union unions two sets containing given elements
+// Union unions two sets containing given elements.
 func (d *DisjointSet) Union(x int, y int) {
 	x = d.Get(x)
 	y = d.Get(y)

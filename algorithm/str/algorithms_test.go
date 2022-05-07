@@ -1,11 +1,13 @@
 package str
 
 import (
-	"github.com/Tv0ridobro/data-structure/slices"
 	"testing"
+
+	"github.com/Tv0ridobro/data-structure/slices"
 )
 
 func TestZfunction(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		line      string
 		zfunction []int
@@ -24,6 +26,7 @@ func TestZfunction(t *testing.T) {
 }
 
 func TestPrefixFunction(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		line   string
 		prefix []int

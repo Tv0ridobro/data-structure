@@ -5,12 +5,12 @@ import (
 )
 
 // FindCycle returns cycle if there is any
-// otherwise empty slice returned
+// otherwise empty slice returned.
 func FindCycle[T any](g *graph.Graph[T]) []int {
 	visited := make([]byte, g.Size())
 	for i := 0; i < g.Size(); i++ {
 		order := []int{i}
-		if visited[i] == 0 && dfsCycle(i, -1, visited, g, &order) {
+		if visited[i] == 0 && dfsCycle(i, -1, visited, g, &order) { // REWRITE TO LIST
 			last := order[len(order)-1]
 			for j := len(order) - 2; j >= 0; j-- {
 				if order[j] == last {
@@ -22,7 +22,7 @@ func FindCycle[T any](g *graph.Graph[T]) []int {
 	return nil
 }
 
-// dfsCycle helper function to find cycle using dfs
+// dfsCycle helper function to find cycle using dfs.
 func dfsCycle[T any](vertex, from int, visited []byte, g *graph.Graph[T], order *[]int) bool {
 	visited[vertex] = 1
 	for _, e := range g.Edges[vertex] {

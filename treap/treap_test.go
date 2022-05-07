@@ -1,23 +1,25 @@
 package treap
 
 import (
-	"github.com/Tv0ridobro/data-structure/slices"
 	"math/rand"
 	"sort"
 	"testing"
+
+	"github.com/Tv0ridobro/data-structure/slices"
 )
 
 func TestAll(t *testing.T) {
+	t.Parallel()
 	tr := New[int]()
 	for i := 0; i < 100; i++ {
 		tr.Insert(i)
 		if tr.Size() != i+1 {
-			t.Errorf("wrong size expected %d  got %d", i+1, i)
+			t.Errorf("wrong size expected %d got %d", i+1, i)
 		}
 	}
 	for i := 0; i < 100; i++ {
 		if !tr.Contains(i) {
-			t.Errorf("dosnt contain %d", i)
+			t.Errorf("doesn't contain %d", i)
 		}
 	}
 	for i := 0; i < 100; i++ {
@@ -29,13 +31,14 @@ func TestAll(t *testing.T) {
 	for i := 0; i < 100; i++ {
 		if i%7 == 4 {
 			if tr.Contains(i) {
-				t.Errorf("contain %d", i)
+				t.Errorf("should not contain %d", i)
 			}
 		}
 	}
 }
 
 func TestAll2(t *testing.T) {
+	t.Parallel()
 	tr := New[int]()
 	permutation := rand.Perm(1000000)
 	for i := range permutation {

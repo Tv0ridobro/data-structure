@@ -3,19 +3,19 @@
 package list
 
 // List represents a doubly linked list
-// Zero value of List is empty list
+// Zero value of List is empty list.
 type List[T any] struct {
 	head *Node[T]
 	tail *Node[T]
 	len  int
 }
 
-// New returns an initialized list
+// New returns an initialized list.
 func New[T any]() *List[T] {
 	return &List[T]{}
 }
 
-// PushFront adds value to the beginning of the list
+// PushFront adds value to the beginning of the list.
 func (l *List[T]) PushFront(value T) {
 	l.len++
 	nn := &Node[T]{
@@ -37,7 +37,7 @@ func (l *List[T]) PushFront(value T) {
 	l.head = nn
 }
 
-// PushBack adds value to the end of the list
+// PushBack adds value to the end of the list.
 func (l *List[T]) PushBack(value T) {
 	l.len++
 	nn := &Node[T]{
@@ -58,12 +58,12 @@ func (l *List[T]) PushBack(value T) {
 	l.tail = nn
 }
 
-// Len returns length of the list
+// Len returns length of the list.
 func (l *List[T]) Len() int {
 	return l.len
 }
 
-// GetAll returns all elements from the list
+// GetAll returns all elements from the list.
 func (l *List[T]) GetAll() []T {
 	data := make([]T, 0, l.len)
 	it := l.head
@@ -75,7 +75,7 @@ func (l *List[T]) GetAll() []T {
 }
 
 // PopBack removes last element of the list
-// Returns zero value if list is empty
+// Returns zero value if list is empty.
 func (l *List[T]) PopBack() T {
 	if l.len == 0 {
 		var empty T
@@ -96,8 +96,8 @@ func (l *List[T]) PopBack() T {
 	return v
 }
 
-// PopFront removes first element of the list
-// Returns zero value if list is empty
+// PopFront removes first element of the list.
+// Returns zero value if list is empty.
 func (l *List[T]) PopFront() T {
 	if l.len == 0 {
 		var empty T
@@ -116,14 +116,14 @@ func (l *List[T]) PopFront() T {
 	return v
 }
 
-// ChangeAt changes value at given index
-// Returns zero value if list is empty
+// ChangeAt changes value at given index.
+// Returns zero value if list is empty.
 func (l *List[T]) ChangeAt(i int, value T) {
 	l.Node(i).Value = value
 }
 
-// Peek returns element at the given index
-// Returns zero value if index is less or equal to len of the list
+// Peek returns element at the given index.
+// Returns zero value if index is less or equal to len of the list.
 func (l *List[T]) Peek(i int) T {
 	v := l.Node(i)
 	if v == nil {
@@ -134,7 +134,7 @@ func (l *List[T]) Peek(i int) T {
 }
 
 // Node returns Node at the given index
-// Returns zero value if index is less or equal to len of the list
+// Returns zero value if index is less or equal to len of the list.
 func (l *List[T]) Node(i int) *Node[T] {
 	if i < 0 || i >= l.Len() {
 		return nil
@@ -157,7 +157,7 @@ func (l *List[T]) Node(i int) *Node[T] {
 	return it
 }
 
-// Merge merges two lists
+// Merge merges two lists.
 func (l *List[T]) Merge(other *List[T]) {
 	if other.head == nil {
 		return
@@ -183,14 +183,14 @@ func (l *List[T]) Merge(other *List[T]) {
 	}
 }
 
-// Clear clears list
+// Clear clears list.
 func (l *List[T]) Clear() {
 	l.len = 0
 	l.head = nil
 	l.tail = nil
 }
 
-// Reverse reverses given list
+// Reverse reverses given list.
 func (l *List[T]) Reverse() {
 	if l.head == nil || l.tail == nil {
 		return
@@ -208,7 +208,7 @@ func (l *List[T]) Reverse() {
 	l.tail = f
 }
 
-// InsertAfter adds new Node with given value after given Node
+// InsertAfter adds new Node with given value after given Node.
 func (l *List[T]) InsertAfter(node *Node[T], value T) {
 	if node == l.tail || l.len == 1 {
 		l.PushBack(value)
@@ -225,7 +225,7 @@ func (l *List[T]) InsertAfter(node *Node[T], value T) {
 	next.prev = nn
 }
 
-// Remove removes given node from list
+// Remove removes given node from list.
 func (l *List[T]) Remove(n *Node[T]) {
 	if n == l.head {
 		l.PopFront()
@@ -242,7 +242,7 @@ func (l *List[T]) Remove(n *Node[T]) {
 	next.prev = prev
 }
 
-// InsertBefore adds new Node with given value before given Node
+// InsertBefore adds new Node with given value before given Node.
 func (l *List[T]) InsertBefore(n *Node[T], value T) {
 	if n == l.head {
 		l.PushFront(value)
@@ -259,7 +259,7 @@ func (l *List[T]) InsertBefore(n *Node[T], value T) {
 
 // Cut cuts list into two list
 // i is last element in first list
-// for example cut(1) for list {1,2,3,4,5} returns {1,2}, {3,4,5}
+// for example cut(1) for list {1,2,3,4,5} returns {1,2}, {3,4,5}.
 func (l *List[T]) Cut(i int) (*List[T], *List[T]) {
 	n := l.Node(i)
 	if n == nil {
@@ -284,7 +284,7 @@ func (l *List[T]) Cut(i int) (*List[T], *List[T]) {
 	return l, other
 }
 
-// Back returns last element
+// Back returns last element.
 func (l *List[T]) Back() T {
 	if l.head == nil {
 		var a T
@@ -296,7 +296,7 @@ func (l *List[T]) Back() T {
 	return l.head.Value
 }
 
-// Front returns first element
+// Front returns first element.
 func (l *List[T]) Front() T {
 	if l.head == nil {
 		var a T

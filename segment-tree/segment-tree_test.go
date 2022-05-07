@@ -1,9 +1,10 @@
 package segmenttree
 
 import (
-	m "github.com/Tv0ridobro/data-structure/math"
 	"math"
 	"testing"
+
+	mathx "github.com/Tv0ridobro/data-structure/math"
 )
 
 type Matrix struct {
@@ -11,6 +12,7 @@ type Matrix struct {
 }
 
 func TestSum(t *testing.T) {
+	t.Parallel()
 	tree := New[int]([]int{17, 2, 3, 4}, func(a, b int) int { return a + b }, 0)
 	tests := []struct {
 		l, r   int
@@ -30,7 +32,8 @@ func TestSum(t *testing.T) {
 }
 
 func TestMax(t *testing.T) {
-	tree := New[int]([]int{17, 2, 3, 4, 5}, m.Max, math.MinInt64)
+	t.Parallel()
+	tree := New[int]([]int{17, 2, 3, 4, 5}, mathx.Max, math.MinInt64)
 	tests := []struct {
 		l, r   int
 		answer int
@@ -49,6 +52,7 @@ func TestMax(t *testing.T) {
 }
 
 func TestMultiply(t *testing.T) {
+	t.Parallel()
 	tree := New[int]([]int{17, 2, 3, 4, 5}, func(a, b int) int { return a * b }, 1)
 	tests := []struct {
 		l, r   int
@@ -68,6 +72,7 @@ func TestMultiply(t *testing.T) {
 }
 
 func TestMatrixMul(t *testing.T) {
+	t.Parallel()
 	mul := func(a, b Matrix) Matrix {
 		return Matrix{data: [2][2]int{
 			{a.data[0][0]*b.data[0][0] + a.data[0][1]*b.data[1][0], a.data[0][0]*b.data[0][1] + a.data[0][1]*b.data[1][1]},

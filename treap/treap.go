@@ -3,13 +3,15 @@
 package treap
 
 import (
+	"math/rand"
+	"time"
+
 	"github.com/Tv0ridobro/data-structure/math"
 	"golang.org/x/exp/constraints"
-	"math/rand"
 )
 
 // Treap represents a treap
-// Zero value of Treap is invalid treap, should be used only with New() or NewWithSource()
+// Zero value of Treap is invalid treap, should be used only with New() or NewWithSource().
 type Treap[T any] struct {
 	comp func(T, T) int
 	rand *rand.Rand
@@ -18,28 +20,28 @@ type Treap[T any] struct {
 
 // New returns an initialized treap
 // rand.Rand is used with zero seed
-// For custom rand.Rand use NewWithSource
+// For custom rand.Rand use NewWithSource.
 func New[T constraints.Ordered]() *Treap[T] {
 	return &Treap[T]{
-		rand: rand.New(rand.NewSource(0)),
+		rand: rand.New(rand.NewSource(time.Now().UnixNano())),
 		comp: math.Comparator[T](),
 	}
 }
 
-// NewWithComparator returns an initialized treap using given comparator
+// NewWithComparator returns an initialized treap using given comparator.
 func NewWithComparator[T any](comp func(T, T) int) *Treap[T] {
 	return &Treap[T]{
-		rand: rand.New(rand.NewSource(0)),
+		rand: rand.New(rand.NewSource(time.Now().UnixNano())),
 		comp: comp,
 	}
 }
 
-// SetSource sets rand source
+// SetSource sets rand source.
 func (t *Treap[T]) SetSource(s rand.Source) {
 	t.rand = rand.New(s)
 }
 
-// Insert inserts value in a tree
+// Insert inserts value in a tree.
 func (t *Treap[T]) Insert(value T) {
 	n := &Node[T]{
 		priority: t.rand.Int(),
@@ -57,7 +59,7 @@ func (t *Treap[T]) Insert(value T) {
 }
 
 // Remove removes value from tree
-// returns true if tree contained given value, false otherwise
+// returns true if tree contained given value, false otherwise.
 func (t *Treap[T]) Remove(value T) bool {
 	if t.root == nil {
 		return false
@@ -71,7 +73,7 @@ func (t *Treap[T]) Remove(value T) bool {
 	return oldSize != t.Size()
 }
 
-// Contains returns true if tree contains given value, false otherwise
+// Contains returns true if tree contains given value, false otherwise.
 func (t *Treap[T]) Contains(value T) bool {
 	if t.root == nil {
 		return false
@@ -79,7 +81,7 @@ func (t *Treap[T]) Contains(value T) bool {
 	return t.root.contains(value, t.comp)
 }
 
-// Size returns size of the tree
+// Size returns size of the tree.
 func (t *Treap[T]) Size() int {
 	if t.root == nil {
 		return 0
@@ -88,7 +90,7 @@ func (t *Treap[T]) Size() int {
 }
 
 // GetAll returns all elements from tree
-// returned slice is sorted
+// returned slice is sorted.
 func (t *Treap[T]) GetAll() []T {
 	if t.root == nil {
 		return nil

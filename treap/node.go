@@ -1,6 +1,6 @@
 package treap
 
-// Node represents node of a treap
+// Node represents node of a treap.
 type Node[T any] struct {
 	priority int
 	value    T
@@ -10,7 +10,7 @@ type Node[T any] struct {
 }
 
 // contains returns true if given node contains given value
-// False otherwise
+// false otherwise.
 func (n *Node[T]) contains(value T, comp func(T, T) int) bool {
 	if n == nil {
 		return false
@@ -24,7 +24,7 @@ func (n *Node[T]) contains(value T, comp func(T, T) int) bool {
 	return n.right.contains(value, comp)
 }
 
-// tryRemoveMin tries to remove minimal element in given node if this element is the same as given one
+// tryRemoveMin tries to remove minimal element in given node if this element is the same as given one.
 func tryRemoveMin[T any](n *Node[T], expected T, comp func(T, T) int) *Node[T] {
 	if n == nil {
 		return nil
@@ -38,7 +38,7 @@ func tryRemoveMin[T any](n *Node[T], expected T, comp func(T, T) int) *Node[T] {
 	return n
 }
 
-// merge merges two nodes, all elements of left node should be less than any of right elements
+// merge merges two nodes, all elements of left node should be less than any of right elements.
 func merge[T any](left *Node[T], right *Node[T]) *Node[T] {
 	if left == nil {
 		return right
@@ -50,14 +50,13 @@ func merge[T any](left *Node[T], right *Node[T]) *Node[T] {
 		right.left = merge(left, right.left)
 		right.recalculateSize()
 		return right
-	} else {
-		left.right = merge(left.right, right)
-		left.recalculateSize()
-		return left
 	}
+	left.right = merge(left.right, right)
+	left.recalculateSize()
+	return left
 }
 
-// split splits given node by given key into two nodes
+// split splits given node by given key into two nodes.
 func split[T any](n *Node[T], key T, comp func(T, T) int) (*Node[T], *Node[T]) {
 	if n == nil {
 		return nil, nil
@@ -74,7 +73,7 @@ func split[T any](n *Node[T], key T, comp func(T, T) int) (*Node[T], *Node[T]) {
 	return left, n
 }
 
-// recalculateSize recalculates size of given node
+// recalculateSize recalculates size of given node.
 func (n *Node[T]) recalculateSize() {
 	if n == nil {
 		return
@@ -86,12 +85,12 @@ func (n *Node[T]) recalculateSize() {
 	if n.right != nil {
 		n.size += n.right.size
 	}
-	n.size += 1
+	n.size++
 	return
 }
 
-// getAll returns all elements in node
-// len of elements should be same as size of node
+// getAll returns all elements in node.
+// Length of elements should be same as size of node.
 func (n *Node[T]) getAll(elements []T) {
 	lSize := 0
 	if n.left != nil {

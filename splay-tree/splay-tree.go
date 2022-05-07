@@ -8,27 +8,27 @@ import (
 )
 
 // SplayTree represents a splay tree
-// Zero value of SplayTree is empty splay tree
+// Zero value of SplayTree is empty splay tree.
 type SplayTree[T any] struct {
 	comp func(T, T) int
 	root *Node[T]
 }
 
-// New returns an initialized splay tree
+// New returns an initialized splay tree.
 func New[T constraints.Ordered]() *SplayTree[T] {
 	return &SplayTree[T]{
 		comp: math.Comparator[T](),
 	}
 }
 
-// NewWithComparator returns an initialized splay tree using given comparator
+// NewWithComparator returns an initialized splay tree using given comparator.
 func NewWithComparator[T any](comp func(T, T) int) *SplayTree[T] {
 	return &SplayTree[T]{
 		comp: comp,
 	}
 }
 
-// Insert inserts value in a tree
+// Insert inserts value in a tree.
 func (s *SplayTree[T]) Insert(value T) {
 	n := &Node[T]{
 		value: value,
@@ -46,7 +46,7 @@ func (s *SplayTree[T]) Insert(value T) {
 	s.root.recalculateSize()
 }
 
-// Contains returns true if tree contains given value, false otherwise
+// Contains returns true if tree contains given value, false otherwise.
 func (s *SplayTree[T]) Contains(value T) bool {
 	if s.root == nil {
 		return false
@@ -55,7 +55,7 @@ func (s *SplayTree[T]) Contains(value T) bool {
 	return s.comp(s.root.value, value) == 0
 }
 
-// Size returns size of the tree
+// Size returns size of the tree.
 func (s *SplayTree[T]) Size() int {
 	if s.root == nil {
 		return 0
@@ -64,7 +64,7 @@ func (s *SplayTree[T]) Size() int {
 }
 
 // Remove removes value from tree
-// returns true if tree contained given value, false otherwise
+// returns true if tree contained given value, false otherwise.
 func (s *SplayTree[T]) Remove(value T) bool {
 	if s.root == nil {
 		return false
@@ -85,7 +85,7 @@ func (s *SplayTree[T]) Remove(value T) bool {
 	return true
 }
 
-// Kth returns kth greatest element
+// Kth returns kth greatest element.
 func (s *SplayTree[T]) Kth(i int) T {
 	if i > s.Size() {
 		var empty T
@@ -95,7 +95,7 @@ func (s *SplayTree[T]) Kth(i int) T {
 	return n.value
 }
 
-//Sub returns elements [l, r) in ascending order
+// Sub returns elements [l, r) in ascending order.
 func (s *SplayTree[T]) Sub(l, r int) []T {
 	sl := make([]T, r-l)
 	n := s.root.kth(l)
@@ -108,7 +108,7 @@ func (s *SplayTree[T]) Sub(l, r int) []T {
 }
 
 // GetAll returns all elements from tree
-// returned slice is sorted
+// returned slice is sorted.
 func (s *SplayTree[T]) GetAll() []T {
 	if s.root == nil {
 		return nil

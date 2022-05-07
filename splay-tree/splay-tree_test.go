@@ -1,13 +1,15 @@
 package splaytree
 
 import (
-	"github.com/Tv0ridobro/data-structure/slices"
 	"math/rand"
 	"sort"
 	"testing"
+
+	"github.com/Tv0ridobro/data-structure/slices"
 )
 
 func TestAll(t *testing.T) {
+	t.Parallel()
 	tr := New[int]()
 	for i := 0; i < 100; i++ {
 		tr.Insert(i)
@@ -36,6 +38,7 @@ func TestAll(t *testing.T) {
 }
 
 func TestAll2(t *testing.T) {
+	t.Parallel()
 	tr := New[int]()
 	permutation := rand.Perm(1000000)
 	for i := range permutation {
@@ -60,6 +63,7 @@ func TestAll2(t *testing.T) {
 }
 
 func TestSplayTree_Kth(t *testing.T) {
+	t.Parallel()
 	s := New[int]()
 	for i := 0; i < 1000; i++ {
 		s.Insert(i)

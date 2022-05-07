@@ -5,15 +5,15 @@ import (
 	"github.com/Tv0ridobro/data-structure/math"
 )
 
-// SparseTable represents a sparse table
-// Zero value of SparseTable is invalid sparse table, should be used only with New()
+// SparseTable represents a sparse table.
+// Zero value of SparseTable is invalid sparse table, should be used only with New().
 type SparseTable[T any] struct {
 	op       func(T, T) T
 	elements [][]T
 }
 
-// New returns an initialized sparse table
-// op should be idempotent, commutative and associative
+// New returns an initialized sparse table.
+// op should be idempotent, commutative and associative.
 func New[T any](op func(T, T) T, elements []T) *SparseTable[T] {
 	ts := make([][]T, len(elements))
 	lg := math.Log2(len(ts))
@@ -34,7 +34,7 @@ func New[T any](op func(T, T) T, elements []T) *SparseTable[T] {
 	}
 }
 
-// Query returns result of operation on elements[l:r+1]
+// Query returns result of operation on elements[l:r+1].
 func (s *SparseTable[T]) Query(l, r int) T {
 	if l > r || l < 0 || r >= len(s.elements) {
 		var empty T

@@ -4,7 +4,7 @@ import (
 	"github.com/Tv0ridobro/data-structure/slices"
 )
 
-// NextPermutation returns next permutation
+// NextPermutation returns next permutation.
 func NextPermutation(s []int) []int {
 	next := make([]int, len(s))
 	copy(next, s)

@@ -5,7 +5,7 @@ import (
 	"github.com/Tv0ridobro/data-structure/list"
 )
 
-// TopologicalSort returns vertices in topological order
+// TopologicalSort returns vertices in topological order.
 func TopologicalSort[T any](g *graph.Graph[T]) []int {
 	if !g.IsDirected() {
 		ans := make([]int, g.Size())
@@ -24,7 +24,7 @@ func TopologicalSort[T any](g *graph.Graph[T]) []int {
 	return l.GetAll()
 }
 
-// dfsTopSort helper function to find topological sort using dfs
+// dfsTopSort helper function to find topological sort using dfs.
 func dfsTopSort[T any](vertex int, visited []byte, g *graph.Graph[T], l *list.List[int]) {
 	visited[vertex] = 1
 	for _, e := range g.Edges[vertex] {

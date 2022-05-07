@@ -7,7 +7,7 @@ import (
 )
 
 // FindShortestPath returns vertices that shortest path contains
-// returns nil if start == end or if there are no path
+// returns nil if start == end or if there are no path.
 func FindShortestPath[T any](g *graph.Graph[T], start, end int) []int {
 	if start < 0 || end < 0 || start >= g.Size() || end >= g.Size() {
 		return nil
@@ -38,7 +38,7 @@ func FindShortestPath[T any](g *graph.Graph[T], start, end int) []int {
 	return nil
 }
 
-// bfsShortestPath helper function to find shortest path
+// bfsShortestPath helper function to find the shortest path.
 func bfsShortestPath[T any](now, end int, g *graph.Graph[T], q *queue.Queue[int], from []int) bool {
 	for _, e := range g.Edges[now] {
 		if from[e.To] == -1 {

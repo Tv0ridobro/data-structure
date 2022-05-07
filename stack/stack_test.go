@@ -3,6 +3,7 @@ package stack
 import "testing"
 
 func TestStack_Peek(t *testing.T) {
+	t.Parallel()
 	stack := New[int]()
 	stack.Push(0)
 	stack.Peek()
@@ -35,6 +36,7 @@ func TestStack_Peek(t *testing.T) {
 }
 
 func TestStack_Pop(t *testing.T) {
+	t.Parallel()
 	stack := New[int]()
 	stack.Push(0)
 	if v := stack.Pop(); v != 0 {
@@ -47,6 +49,7 @@ func TestStack_Pop(t *testing.T) {
 }
 
 func TestStack_Size(t *testing.T) {
+	t.Parallel()
 	stack := New[int]()
 	stack.Push(0)
 	stack.Push(1)

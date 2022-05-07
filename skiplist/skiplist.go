@@ -3,20 +3,21 @@
 package skiplist
 
 import (
+	"math/rand"
+
 	"github.com/Tv0ridobro/data-structure/math"
 	"github.com/Tv0ridobro/data-structure/stack"
 	"golang.org/x/exp/constraints"
-	"math/rand"
 )
 
 // SkipList represents a skiplist
-// Zero value of SkipList is invalid skiplist, should be used only with New() or NewWithProbability()
+// Zero value of SkipList is invalid skiplist, should be used only with New() or NewWithProbability().
 type SkipList[T constraints.Ordered] struct {
 	p    float64
 	head *Node[T]
 }
 
-// NewWithProbability returns an initialized skiplist with given probability
+// NewWithProbability returns an initialized skiplist with given probability.
 func NewWithProbability[T constraints.Ordered](p float64) *SkipList[T] {
 	n := &Node[T]{
 		value: math.SmallestValue[T](),
@@ -27,18 +28,18 @@ func NewWithProbability[T constraints.Ordered](p float64) *SkipList[T] {
 	}
 }
 
-// New returns an initialized skiplist with probability = 0.5
+// New returns an initialized skiplist with probability = 0.5.
 func New[T constraints.Ordered]() *SkipList[T] {
 	return NewWithProbability[T](0.5)
 }
 
-// Insert inserts value in a skiplist
+// Insert inserts value in a skiplist.
 func (s *SkipList[T]) Insert(value T) {
 	it, nodes := s.find(value)
 	if it.value == value {
 		return
 	}
-	below := &Node[T]{ //insert ones
+	below := &Node[T]{ // insert ones
 		next:  it.next,
 		value: value,
 	}
@@ -64,7 +65,7 @@ func (s *SkipList[T]) Insert(value T) {
 }
 
 // Remove removes value from skiplist
-// returns true if skiplist contained given value, false otherwise
+// returns true if skiplist contained given value, false otherwise.
 func (s *SkipList[T]) Remove(value T) bool {
 	it, nodes := s.find(value)
 	if it.value != value {
@@ -89,7 +90,7 @@ func (s *SkipList[T]) Remove(value T) bool {
 	return true
 }
 
-// normalize removes all layers without elements
+// normalize removes all layers without elements.
 func (s *SkipList[T]) normalize() {
 	for s.head.HasBelow() && !s.head.HasNext() {
 		s.head = s.head.below
@@ -97,7 +98,7 @@ func (s *SkipList[T]) normalize() {
 }
 
 // Find returns Node that contains value if its exist
-// closest one otherwise
+// closest one otherwise.
 func (s *SkipList[T]) Find(value T) *Node[T] {
 	it, _ := s.find(value)
 	return it
@@ -105,27 +106,29 @@ func (s *SkipList[T]) Find(value T) *Node[T] {
 
 // find returns Node that contains value if its exist
 // closest one otherwise
-// returns stack of nodes on path to returned node
+// returns stack of nodes on path to returned node.
 func (s *SkipList[T]) find(value T) (*Node[T], *stack.Stack[*Node[T]]) {
 	nodes := stack.New[*Node[T]]()
 	it := s.head
-	for { //find where to place it
+Loop:
+	for { // find where to place it
 		if it.value == value {
 			return it, nodes
 		}
-		if it.HasNext() && it.next.value <= value {
+		switch {
+		case it.HasNext() && it.next.value <= value:
 			it = it.next
-		} else if it.HasBelow() {
+		case it.HasBelow():
 			nodes.Push(it)
 			it = it.below
-		} else {
-			break
+		default:
+			break Loop
 		}
 	}
 	return it, nodes
 }
 
-// Contains returns true if skiplist contains given value, false otherwise
+// Contains returns true if skiplist contains given value, false otherwise.
 func (s *SkipList[T]) Contains(value T) bool {
 	return s.Find(value).value == value
 }

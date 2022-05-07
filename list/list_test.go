@@ -1,12 +1,14 @@
 package list
 
 import (
-	"github.com/Tv0ridobro/data-structure/slices"
 	"math/rand"
 	"testing"
+
+	"github.com/Tv0ridobro/data-structure/slices"
 )
 
 func TestList_PopBack(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	for i := 0; i < 20; i++ {
 		list.PushBack(i)
@@ -19,6 +21,7 @@ func TestList_PopBack(t *testing.T) {
 }
 
 func TestList_PopBackEmpty(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	var a int
 	for i := 0; i < 20; i++ {
@@ -30,6 +33,7 @@ func TestList_PopBackEmpty(t *testing.T) {
 }
 
 func TestList_PopFrontEmpty(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	var a int
 	for i := 0; i < 20; i++ {
@@ -41,6 +45,7 @@ func TestList_PopFrontEmpty(t *testing.T) {
 }
 
 func TestList_NodeEmpty(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	for i := 0; i < 20; i++ {
 		v := list.Node(i)
@@ -51,6 +56,7 @@ func TestList_NodeEmpty(t *testing.T) {
 }
 
 func TestList_Back(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	var a int
 	if v := list.Back(); v != a {
@@ -67,6 +73,7 @@ func TestList_Back(t *testing.T) {
 }
 
 func TestList_Clear(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	list.PushBack(10)
 	list.PushBack(2)
@@ -89,6 +96,7 @@ func TestList_Clear(t *testing.T) {
 }
 
 func TestList_Reverse(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	list.Reverse()
 	values := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
@@ -102,6 +110,7 @@ func TestList_Reverse(t *testing.T) {
 }
 
 func TestList_PopFront(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	for i := 0; i < 20; i++ {
 		list.PushFront(i)
@@ -114,6 +123,7 @@ func TestList_PopFront(t *testing.T) {
 }
 
 func TestList_FrontAndBack(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	value := 10
 	list.PushBack(value)
@@ -128,6 +138,7 @@ func TestList_FrontAndBack(t *testing.T) {
 }
 
 func TestList_FrontAndBackEmpty(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	var value int
 	v1 := list.Back()
@@ -141,6 +152,7 @@ func TestList_FrontAndBackEmpty(t *testing.T) {
 }
 
 func TestList_Len(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	if list.Len() != 0 {
 		t.Error("wrong length size")
@@ -162,6 +174,7 @@ func TestList_Len(t *testing.T) {
 }
 
 func TestList_GetAllAndPeek(t *testing.T) {
+	t.Parallel()
 	length := 100
 	data := make([]int, 0)
 	list := New[int]()
@@ -188,6 +201,7 @@ func TestList_GetAllAndPeek(t *testing.T) {
 }
 
 func TestList_ChangeAt(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	for i := 0; i < 20; i++ {
 		list.PushBack(i)
@@ -201,6 +215,7 @@ func TestList_ChangeAt(t *testing.T) {
 }
 
 func TestList_PeekEmpty(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	v := list.Peek(10)
 	var a int
@@ -210,6 +225,7 @@ func TestList_PeekEmpty(t *testing.T) {
 }
 
 func TestList_Cut(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	for i := 0; i < 20; i++ {
 		list.PushBack(i)
@@ -230,6 +246,7 @@ func TestList_Cut(t *testing.T) {
 }
 
 func TestList_Cut2(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	list.PushBack(1)
 	l, r := list.Cut(0)
@@ -242,6 +259,7 @@ func TestList_Cut2(t *testing.T) {
 }
 
 func TestList_Cut3(t *testing.T) {
+	t.Parallel()
 	list := New[int]()
 	list.PushBack(1)
 	l, r := list.Cut(1)
@@ -254,6 +272,7 @@ func TestList_Cut3(t *testing.T) {
 }
 
 func TestList_Merge(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		values1 []int
 		values2 []int

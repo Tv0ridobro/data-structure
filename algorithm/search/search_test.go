@@ -7,6 +7,7 @@ import (
 )
 
 func TestOrderStatistics(t *testing.T) {
+	t.Parallel()
 	for i := 0; i < 10; i++ {
 		perm := rand.Perm(10)
 		ans := OrderStatistics(perm, i)

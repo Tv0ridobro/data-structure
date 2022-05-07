@@ -3,6 +3,7 @@ package queue
 import "testing"
 
 func TestQueue_Front(t *testing.T) {
+	t.Parallel()
 	q := New[int]()
 	q.Enqueue(0)
 	q.Enqueue(1)
@@ -31,6 +32,7 @@ func TestQueue_Front(t *testing.T) {
 }
 
 func TestQueue_Dequeue(t *testing.T) {
+	t.Parallel()
 	q := New[int]()
 	q.Enqueue(0)
 	q.Enqueue(1)
@@ -55,6 +57,7 @@ func TestQueue_Dequeue(t *testing.T) {
 }
 
 func TestQueue_Back(t *testing.T) {
+	t.Parallel()
 	q := New[int]()
 	q.Enqueue(0)
 	if v := q.Back(); v != 0 {
@@ -79,6 +82,7 @@ func TestQueue_Back(t *testing.T) {
 }
 
 func TestQueue_Size(t *testing.T) {
+	t.Parallel()
 	q := New[int]()
 	q.Enqueue(0)
 	q.Enqueue(1)
