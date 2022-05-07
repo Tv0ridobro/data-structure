@@ -8,7 +8,6 @@ linters:
     - forbidigo
     - lll
     - whitespace
-    - ifshort
     - gofmt
     - godot
     - goimports
@@ -47,6 +46,7 @@ linters:
     - makezero
     - misspell
   disable:
+    - ifshort
     # temporally disabled because of 1.18
     - unused
     - staticcheck
