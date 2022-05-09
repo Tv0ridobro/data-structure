@@ -1,4 +1,4 @@
-// Package sparsetable implements a sparse table
+// Package sparsetable implements a sparse table.
 package sparsetable
 
 import (

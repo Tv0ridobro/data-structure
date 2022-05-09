@@ -1,10 +1,10 @@
-// Package queue implements a queue
-// See https://en.wikipedia.org/wiki/Queue_(abstract_data_type) for more details
+// Package queue implements a queue.
+// See https://en.wikipedia.org/wiki/Queue_(abstract_data_type) for more details.
 package queue
 
 import "github.com/Tv0ridobro/data-structure/list"
 
-// Queue represents a queue
+// Queue represents a queue.
 // Zero value of Stack is invalid stack, should be used only with New().
 type Queue[T any] struct {
 	list *list.List[T]

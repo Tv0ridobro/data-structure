@@ -31,7 +31,6 @@ linters:
     - nolintlint
     - prealloc
     - predeclared
-    - thelper
     - unconvert
     - wrapcheck
     - gocognit

@@ -1,5 +1,5 @@
-// Package treap implements a treap
-// See https://en.wikipedia.org/wiki/Treap for more details
+// Package treap implements a treap.
+// See https://en.wikipedia.org/wiki/Treap for more details.
 package treap
 
 import (
@@ -10,16 +10,16 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-// Treap represents a treap
+// Treap represents a treap.
 // Zero value of Treap is invalid treap, should be used only with New() or NewWithSource().
 type Treap[T any] struct {
 	comp func(T, T) int
 	rand *rand.Rand
-	root *Node[T]
+	root *node[T]
 }
 
-// New returns an initialized treap
-// rand.Rand is used with zero seed
+// New returns an initialized treap.
+// rand.Rand is used with time.Now().UnixNano().
 // For custom rand.Rand use NewWithSource.
 func New[T constraints.Ordered]() *Treap[T] {
 	return &Treap[T]{
@@ -43,7 +43,7 @@ func (t *Treap[T]) SetSource(s rand.Source) {
 
 // Insert inserts value in a tree.
 func (t *Treap[T]) Insert(value T) {
-	n := &Node[T]{
+	n := &node[T]{
 		priority: t.rand.Int(),
 		value:    value,
 		size:     1,
@@ -58,8 +58,8 @@ func (t *Treap[T]) Insert(value T) {
 	t.root = right1
 }
 
-// Remove removes value from tree
-// returns true if tree contained given value, false otherwise.
+// Remove removes value from tree.
+// Returns true if tree contained given value, false otherwise.
 func (t *Treap[T]) Remove(value T) bool {
 	if t.root == nil {
 		return false
@@ -89,8 +89,8 @@ func (t *Treap[T]) Size() int {
 	return t.root.size
 }
 
-// GetAll returns all elements from tree
-// returned slice is sorted.
+// GetAll returns all elements from tree.
+// Returned slice is sorted.
 func (t *Treap[T]) GetAll() []T {
 	if t.root == nil {
 		return nil

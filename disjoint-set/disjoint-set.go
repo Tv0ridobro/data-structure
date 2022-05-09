@@ -1,8 +1,8 @@
-// Package disjointset implements a disjoint set
-// See https://en.wikipedia.org/wiki/Disjoint-set_data_structure for more details
+// Package disjointset implements a disjoint set.
+// See https://en.wikipedia.org/wiki/Disjoint-set_data_structure for more details.
 package disjointset
 
-// DisjointSet represents a disjoint set
+// DisjointSet represents a disjoint set.
 // Zero value of DisjointSet is disjoint set of 0 elements.
 type DisjointSet struct {
 	ranks   []int

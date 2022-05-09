@@ -1,16 +1,16 @@
 package splaytree
 
-// Node represents node of a splay tree.
-type Node[T any] struct {
-	parent *Node[T]
-	right  *Node[T]
-	left   *Node[T]
+// node represents node of a splay tree.
+type node[T any] struct {
+	parent *node[T]
+	right  *node[T]
+	left   *node[T]
 	value  T
 	size   int
 }
 
 // isRight returns true if node is right child of his parent, false otherwise.
-func (n *Node[T]) isRight() bool {
+func (n *node[T]) isRight() bool {
 	if n == nil || n.parent == nil {
 		return false
 	}
@@ -19,7 +19,7 @@ func (n *Node[T]) isRight() bool {
 }
 
 // isRight returns true if node is left child of his parent, false otherwise.
-func (n *Node[T]) isLeft() bool {
+func (n *node[T]) isLeft() bool {
 	if n == nil || n.parent == nil {
 		return false
 	}
@@ -28,12 +28,12 @@ func (n *Node[T]) isLeft() bool {
 }
 
 // isRoot returns true if given node is root.
-func (n *Node[T]) isRoot() bool {
+func (n *node[T]) isRoot() bool {
 	return n.parent == nil
 }
 
 // setRight sets c as right child of p.
-func setRight[T any](p, c *Node[T]) {
+func setRight[T any](p, c *node[T]) {
 	if p == nil {
 		return
 	}
@@ -44,7 +44,7 @@ func setRight[T any](p, c *Node[T]) {
 }
 
 // setRight sets c as left child of p.
-func setLeft[T any](p, c *Node[T]) {
+func setLeft[T any](p, c *node[T]) {
 	if p == nil {
 		return
 	}
@@ -56,7 +56,7 @@ func setLeft[T any](p, c *Node[T]) {
 
 // find returns node containing given value
 // or last node reached.
-func (n *Node[T]) find(value T, comp func(T, T) int) *Node[T] {
+func (n *node[T]) find(value T, comp func(T, T) int) *node[T] {
 	if n == nil {
 		return nil
 	}
@@ -79,7 +79,7 @@ func (n *Node[T]) find(value T, comp func(T, T) int) *Node[T] {
 }
 
 // splay uses splay.
-func (n *Node[T]) splay() {
+func (n *node[T]) splay() {
 	for !n.isRoot() && !n.parent.isRoot() {
 		if (n.isLeft() && n.parent.isLeft()) || (n.isRight() && n.parent.isRight()) {
 			n.zigZig()
@@ -93,7 +93,7 @@ func (n *Node[T]) splay() {
 }
 
 // zig uses left or right rotation.
-func (n *Node[T]) zig() {
+func (n *node[T]) zig() {
 	grandParent := n.parent.parent
 	isLeft := n.parent.isLeft()
 	if n.isLeft() {
@@ -117,27 +117,27 @@ func (n *Node[T]) zig() {
 }
 
 // zigZig uses zig zig rotation.
-func (n *Node[T]) zigZig() {
+func (n *node[T]) zigZig() {
 	n.parent.zig()
 	n.zig()
 }
 
 // zigZag uses zig zag rotation.
-func (n *Node[T]) zigZag() {
+func (n *node[T]) zigZag() {
 	n.zig()
 	n.zig()
 }
 
 // max returns node with max element.
-func (n *Node[T]) max() *Node[T] {
+func (n *node[T]) max() *node[T] {
 	for n.right != nil {
 		n = n.right
 	}
 	return n
 }
 
-// max returns node with max element.
-func (n *Node[T]) min() *Node[T] {
+// min returns node with min element.
+func (n *node[T]) min() *node[T] {
 	for n.left != nil {
 		n = n.left
 	}
@@ -145,7 +145,7 @@ func (n *Node[T]) min() *Node[T] {
 }
 
 // split splits given node by given key into two nodes.
-func split[T any](n *Node[T], key T, comp func(T, T) int) (*Node[T], *Node[T]) {
+func split[T any](n *node[T], key T, comp func(T, T) int) (*node[T], *node[T]) {
 	if n == nil {
 		return nil, nil
 	}
@@ -168,8 +168,8 @@ func split[T any](n *Node[T], key T, comp func(T, T) int) (*Node[T], *Node[T]) {
 	return nn, right
 }
 
-// merge merges two nodes, all elements of left node should be less than any of right elements.
-func merge[T any](left *Node[T], right *Node[T]) *Node[T] {
+// merge merges two nodes, all elements of left node should be less than any of right node.
+func merge[T any](left *node[T], right *node[T]) *node[T] {
 	if left == nil {
 		return right
 	}
@@ -184,7 +184,7 @@ func merge[T any](left *Node[T], right *Node[T]) *Node[T] {
 }
 
 // recalculateSize recalculates size of given node.
-func (n *Node[T]) recalculateSize() {
+func (n *node[T]) recalculateSize() {
 	if n == nil {
 		return
 	}
@@ -199,8 +199,8 @@ func (n *Node[T]) recalculateSize() {
 	return
 }
 
-// recalculateSize recalculates size of given node.
-func (n *Node[T]) kth(i int) *Node[T] {
+// kth returns kth greatest element.
+func (n *node[T]) kth(i int) *node[T] {
 	if n.size-1 == i {
 		return n
 	}
@@ -210,7 +210,9 @@ func (n *Node[T]) kth(i int) *Node[T] {
 	return n.right.kth(i - n.left.size - 1)
 }
 
-func (n *Node[T]) next() *Node[T] {
+// next returns node A in a way that this.value < A.value
+// and there are no node B that this.value < B.value < A.value.
+func (n *node[T]) next() *node[T] {
 	if n.right != nil {
 		return n.right.min()
 	}
@@ -221,9 +223,9 @@ func (n *Node[T]) next() *Node[T] {
 	return n
 }
 
-// getAll returns all elements in node
+// getAll returns all elements in node.
 // len of elements should be same as size of node.
-func (n *Node[T]) getAll(elements []T) {
+func (n *node[T]) getAll(elements []T) {
 	lSize := 0
 	if n.left != nil {
 		lSize = n.left.size

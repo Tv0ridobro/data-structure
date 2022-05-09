@@ -1,5 +1,5 @@
-// Package splaytree implements a splay tree
-// See https://en.wikipedia.org/wiki/Splay_tree for more details
+// Package splaytree implements a splay tree.
+// See https://en.wikipedia.org/wiki/Splay_tree for more details.
 package splaytree
 
 import (
@@ -7,11 +7,11 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-// SplayTree represents a splay tree
+// SplayTree represents a splay tree.
 // Zero value of SplayTree is empty splay tree.
 type SplayTree[T any] struct {
 	comp func(T, T) int
-	root *Node[T]
+	root *node[T]
 }
 
 // New returns an initialized splay tree.
@@ -30,7 +30,7 @@ func NewWithComparator[T any](comp func(T, T) int) *SplayTree[T] {
 
 // Insert inserts value in a tree.
 func (s *SplayTree[T]) Insert(value T) {
-	n := &Node[T]{
+	n := &node[T]{
 		value: value,
 		size:  1,
 	}
@@ -63,7 +63,7 @@ func (s *SplayTree[T]) Size() int {
 	return s.root.size
 }
 
-// Remove removes value from tree
+// Remove removes value from tree.
 // returns true if tree contained given value, false otherwise.
 func (s *SplayTree[T]) Remove(value T) bool {
 	if s.root == nil {
@@ -107,8 +107,8 @@ func (s *SplayTree[T]) Sub(l, r int) []T {
 	return sl
 }
 
-// GetAll returns all elements from tree
-// returned slice is sorted.
+// GetAll returns all elements from tree.
+// Returned slice is sorted.
 func (s *SplayTree[T]) GetAll() []T {
 	if s.root == nil {
 		return nil

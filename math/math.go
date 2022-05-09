@@ -7,7 +7,7 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-// NearestPowerOf2 returns nearest power of 2 (k <= (1 << ans) < 2k)
+// NearestPowerOf2 returns nearest power of 2 (k <= (1 << ans) < 2k).
 // For non-positive numbers returns 0.
 func NearestPowerOf2(k int) int {
 	if (k & (k - 1)) == 0 {
@@ -21,7 +21,7 @@ func NearestPowerOf2(k int) int {
 	return (k - (k >> 1)) << 1
 }
 
-// Log2 returns floor log2 value of given number
+// Log2 returns floor log2 value of given number.
 // For non-positive numbers returns -1.
 func Log2(i int) int {
 	if i <= 0 {
@@ -61,6 +61,7 @@ func GCD(a, b int) int {
 	return a
 }
 
+// SmallestValue returns smallest possible value of given type.
 func SmallestValue[T constraints.Ordered]() T {
 	var a T
 	v := reflect.ValueOf(&a).Elem()
@@ -85,6 +86,9 @@ func SmallestValue[T constraints.Ordered]() T {
 	return a
 }
 
+// Comparator returns comparator of given type.
+// comparator is a function that takes two arguments and
+// returns 0 if there are equal, -1 if first is less, 1 if first is greater.
 func Comparator[T constraints.Ordered]() func(T, T) int {
 	return func(a T, b T) int {
 		switch {
