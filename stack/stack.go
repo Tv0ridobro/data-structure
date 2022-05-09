@@ -1,5 +1,5 @@
-// Package stack implements a stack
-// See https://en.wikipedia.org/wiki/Stack_(abstract_data_type) for more details
+// Package stack implements a stack.
+// See https://en.wikipedia.org/wiki/Stack_(abstract_data_type) for more details.
 package stack
 
 // Stack represents a stack.
@@ -25,7 +25,7 @@ func (s *Stack[T]) Pop() T {
 	return v
 }
 
-// Peek returns element on tom of stack.
+// Peek returns element on top of stack.
 func (s *Stack[T]) Peek() T {
 	return s.array[len(s.array)-1]
 }

@@ -1,6 +1,7 @@
 package str
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/Tv0ridobro/data-structure/slices"
@@ -41,4 +42,40 @@ func TestPrefixFunction(t *testing.T) {
 			t.Errorf("%v %v", ans, tests[i].prefix)
 		}
 	}
+}
+
+func FuzzZFunction(f *testing.F) {
+	f.Add("zfunction")
+	f.Fuzz(func(t *testing.T, s string) {
+		zfunction := ZFunction(s)
+		for i, e := range zfunction {
+			if i == 0 {
+				continue
+			}
+			if !strings.HasPrefix(s, s[i:i+e]) {
+				t.Errorf("wrong answer %s %v", s, zfunction)
+			}
+			if len(s) >= i+e+1 && strings.HasPrefix(s, s[i:i+e+1]) {
+				t.Errorf("wrong answer %s %v", s, zfunction)
+			}
+		}
+	})
+}
+
+func FuzzPrefixFunction(f *testing.F) {
+	f.Add("prefixfunction")
+	f.Fuzz(func(t *testing.T, s string) {
+		prefixfunction := PrefixFunction(s)
+		for i, e := range prefixfunction {
+			if i == 0 {
+				continue
+			}
+			if !strings.HasPrefix(s, s[i+1-e:i+1]) {
+				t.Errorf("wrong answer %s %v", s, prefixfunction)
+			}
+			if i != e && strings.HasPrefix(s, s[i-e:i+1]) {
+				t.Errorf("wrong answer %s %v", s, prefixfunction)
+			}
+		}
+	})
 }

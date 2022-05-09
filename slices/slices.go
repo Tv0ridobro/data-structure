@@ -1,6 +1,6 @@
 package slices
 
-// Equal returns true if given slices contain same elements without checking capacity
+// Equal returns true if given slices contain same elements without checking capacity,
 // false otherwise.
 func Equal[T comparable](f, s []T) bool {
 	if len(f) != len(s) {

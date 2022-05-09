@@ -10,7 +10,7 @@ func FindCycle[T any](g *graph.Graph[T]) []int {
 	visited := make([]byte, g.Size())
 	for i := 0; i < g.Size(); i++ {
 		order := []int{i}
-		if visited[i] == 0 && dfsCycle(i, -1, visited, g, &order) { // REWRITE TO LIST
+		if visited[i] == 0 && dfsCycle(i, -1, visited, g, &order) {
 			last := order[len(order)-1]
 			for j := len(order) - 2; j >= 0; j-- {
 				if order[j] == last {

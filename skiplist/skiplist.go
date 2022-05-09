@@ -1,5 +1,5 @@
-// Package skiplist implements a skiplist
-// See https://en.wikipedia.org/wiki/Skip_list for more details
+// Package skiplist implements a skiplist.
+// See https://en.wikipedia.org/wiki/Skip_list for more details.
 package skiplist
 
 import (
@@ -10,7 +10,7 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-// SkipList represents a skiplist
+// SkipList represents a skiplist.
 // Zero value of SkipList is invalid skiplist, should be used only with New() or NewWithProbability().
 type SkipList[T constraints.Ordered] struct {
 	p    float64
@@ -64,8 +64,8 @@ func (s *SkipList[T]) Insert(value T) {
 	}
 }
 
-// Remove removes value from skiplist
-// returns true if skiplist contained given value, false otherwise.
+// Remove removes value from skiplist.
+// Returns true if skiplist contained given value, false otherwise.
 func (s *SkipList[T]) Remove(value T) bool {
 	it, nodes := s.find(value)
 	if it.value != value {
@@ -97,16 +97,16 @@ func (s *SkipList[T]) normalize() {
 	}
 }
 
-// Find returns Node that contains value if its exist
-// closest one otherwise.
+// Find returns Node that contains value if its exist,
+// closest otherwise.
 func (s *SkipList[T]) Find(value T) *Node[T] {
 	it, _ := s.find(value)
 	return it
 }
 
-// find returns Node that contains value if its exist
-// closest one otherwise
-// returns stack of nodes on path to returned node.
+// find returns Node that contains value if its exist,
+// closest one otherwise.
+// Returns stack of nodes on path to returned node.
 func (s *SkipList[T]) find(value T) (*Node[T], *stack.Stack[*Node[T]]) {
 	nodes := stack.New[*Node[T]]()
 	it := s.head

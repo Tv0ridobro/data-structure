@@ -1,5 +1,5 @@
-// Package segmenttree implements a segment tree
-// See https://en.wikipedia.org/wiki/Segment_tree for more details
+// Package segmenttree implements a segment tree.
+// See https://en.wikipedia.org/wiki/Segment_tree for more details.
 package segmenttree
 
 import (
@@ -51,9 +51,9 @@ func (s *SegmentTree[T]) Query(l, r int) T {
 	return s.query(1, 0, len(s.elements)/2-1, l, r)
 }
 
-// query returns result of operation on given segment
-// i is current index in tree
-// l and r are its bound
+// query returns result of operation on given segment.
+// i is current index in tree,
+// l and r are its bound,
 // left and right are initial values of query.
 func (s *SegmentTree[T]) query(i, left, right, l, r int) T {
 	if l > r {
@@ -76,8 +76,8 @@ func (s *SegmentTree[T]) Modify(i int, value T) {
 }
 
 // modify modifies value at given index
-// i is current index in tree
-// left and right are its bound
+// i is current index in tree,
+// left and right are its bound,
 // ind is initial index.
 func (s *SegmentTree[T]) modify(i, ind, left, right int, value T) {
 	if right == left {

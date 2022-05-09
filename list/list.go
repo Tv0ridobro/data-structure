@@ -1,8 +1,8 @@
-// Package list implements a doubly linked list
-// See https://en.wikipedia.org/wiki/Linked_list for more details
+// Package list implements a doubly linked list.
+// See https://en.wikipedia.org/wiki/Linked_list for more details.
 package list
 
-// List represents a doubly linked list
+// List represents a doubly linked list.
 // Zero value of List is empty list.
 type List[T any] struct {
 	head *Node[T]
@@ -74,7 +74,7 @@ func (l *List[T]) GetAll() []T {
 	return data
 }
 
-// PopBack removes last element of the list
+// PopBack removes last element of the list.
 // Returns zero value if list is empty.
 func (l *List[T]) PopBack() T {
 	if l.len == 0 {
@@ -133,7 +133,7 @@ func (l *List[T]) Peek(i int) T {
 	return v.Value
 }
 
-// Node returns Node at the given index
+// Node returns Node at the given index.
 // Returns zero value if index is less or equal to len of the list.
 func (l *List[T]) Node(i int) *Node[T] {
 	if i < 0 || i >= l.Len() {
@@ -190,7 +190,7 @@ func (l *List[T]) Clear() {
 	l.tail = nil
 }
 
-// Reverse reverses given list.
+// Reverse reverses list.
 func (l *List[T]) Reverse() {
 	if l.head == nil || l.tail == nil {
 		return
@@ -257,9 +257,9 @@ func (l *List[T]) InsertBefore(n *Node[T], value T) {
 	n.prev = nn
 }
 
-// Cut cuts list into two list
-// i is last element in first list
-// for example cut(1) for list {1,2,3,4,5} returns {1,2}, {3,4,5}.
+// Cut cuts list into two list.
+// i is last element in first list, for example
+// cut(1) for list {1,2,3,4,5} returns {1,2}, {3,4,5}.
 func (l *List[T]) Cut(i int) (*List[T], *List[T]) {
 	n := l.Node(i)
 	if n == nil {

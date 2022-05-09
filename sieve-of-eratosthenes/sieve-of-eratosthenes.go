@@ -1,8 +1,8 @@
-// Package sieveoferatosthenes implements a sieve of eratosthenes
-// See https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes for more details
+// Package sieveoferatosthenes implements a sieve of eratosthenes.
+// See https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes for more details.
 package sieveoferatosthenes
 
-// SieveOfEratosthenes represents a sieve of eratosthenes
+// SieveOfEratosthenes represents a sieve of eratosthenes.
 // Zero value of SieveOfEratosthenes is invalid sieve, should be used only with New().
 type SieveOfEratosthenes struct {
 	numbers []int
@@ -28,7 +28,7 @@ func New(size int) *SieveOfEratosthenes {
 	return &SieveOfEratosthenes{numbers: s, primes: primes}
 }
 
-// IsPrime returns true if given number is prime
+// IsPrime returns true if given number is prime,
 // false otherwise.
 func (s *SieveOfEratosthenes) IsPrime(i int) bool {
 	if i <= 0 {

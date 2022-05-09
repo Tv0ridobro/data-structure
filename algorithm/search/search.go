@@ -6,7 +6,7 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-// OrderStatistics returns kth largest element in given slice
+// OrderStatistics returns kth largest element in given slice.
 // Changes order in elements.
 func OrderStatistics[T constraints.Ordered](elements []T, k int) T {
 	l, r := 0, len(elements)
@@ -24,7 +24,7 @@ func OrderStatistics[T constraints.Ordered](elements []T, k int) T {
 }
 
 // partition picks random element as pivot and partitions slice in a way
-// that elements at lower indexes are less or equal than pivot
+// that elements at lower indexes are less or equal than pivot.
 // partition returns index of pivot.
 func partition[T constraints.Ordered](elements []T) int {
 	size := len(elements)
